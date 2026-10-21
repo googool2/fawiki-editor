@@ -207,6 +207,27 @@
         "FA05": {
           "correct": 8
         }
+      },
+      "non_whitespace": {
+        "note": "FA43/FA44 (spaces) are 60% of all changes and are excluded here",
+        "wikitext": {
+          "articles_with_fix_pct": 62,
+          "per_1k_chars_median": 0.12,
+          "per_1k_chars_iqr": [
+            0.0,
+            0.5
+          ],
+          "per_1k_chars_max": 5.86
+        },
+        "plain_text": {
+          "articles_with_fix_pct": 60,
+          "per_1k_chars_median": 0.16,
+          "per_1k_chars_iqr": [
+            0.0,
+            0.55
+          ],
+          "per_1k_chars_max": 6.02
+        }
       }
     }
   }

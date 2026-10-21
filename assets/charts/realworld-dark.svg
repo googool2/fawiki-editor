@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="176" viewBox="0 0 760 176" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-label="Wrong automatic fixes on 88 real fa.wiki articles">
+<rect width="100%" height="100%" fill="#0d1117" rx="8"/>
+<text x="20" y="32" font-size="18" font-weight="600" fill="#e6edf3">Wrong automatic fixes on 88 real fa.wiki articles</text>
+<text x="20" y="56" font-size="13" fill="#9198a1">Every change labeled by hand (bench/label.py); lower is better</text>
+<line x1="210.0" y1="72" x2="210.0" y2="164" stroke="#30363d" stroke-width="1"/>
+<line x1="450.0" y1="72" x2="450.0" y2="164" stroke="#30363d" stroke-width="1"/>
+<line x1="690.0" y1="72" x2="690.0" y2="164" stroke="#30363d" stroke-width="1"/>
+<text x="190" y="94.0" font-size="14" text-anchor="end" fill="#e6edf3">before fixes</text>
+<rect x="210" y="78" width="300.0" height="22" rx="3" fill="#4493f8"/>
+<text x="518.0" y="94.0" font-size="13" font-weight="600" fill="#e6edf3">12 of 759 changes (1.58%)</text>
+<text x="190" y="138.0" font-size="14" text-anchor="end" fill="#e6edf3">v0.2.0</text>
+<rect x="210" y="122" width="2.0" height="22" rx="3" fill="#4493f8"/>
+<text x="220.0" y="138.0" font-size="13" font-weight="600" fill="#e6edf3">0 of 742 changes (0%)</text>
+</svg>

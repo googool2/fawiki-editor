@@ -61,12 +61,14 @@ where (line), why it matters (rule and reference), the options, then ask one pla
 question in the user's language. No jokes, no pet names. No answer means no change.
 
 ## 4. Deliver (in the user's language, usually Persian)
-1. The wikitext in one fenced block.
-2. Check result, e.g. «fa_lint: ۰ تغییر — wikitext_check: ۰ خطا، ۱ هشدار».
-3. What the user must verify: `{{مدرک}}` claims, unconfirmed links and categories,
+1. For a new article, one line first: the notability verdict (سرشناسی: likely notable /
+   doubtful / will probably be deleted) and why, then whether fa.wiki may already have it.
+2. The wikitext in one fenced block.
+3. Check result, e.g. «fa_lint: ۰ تغییر — wikitext_check: ۰ خطا، ۱ هشدار».
+4. What the user must verify: `{{مدرک}}` claims, unconfirmed links and categories,
    infobox parameter names, TODO citation fields, sources listed as leads.
-4. Translations: the edit summary and the talk-page template.
-5. This notice:
+5. Translations: the edit summary and the talk-page template.
+6. This notice:
 
 > **یادآوری:** این متن با کمک هوش مصنوعی تهیه شده است. پیش از انتشار، تک‌تک ادعاها و
 > منابع را خودتان بررسی کنید و از وجود و درستی هر منبع مطمئن شوید؛ متن را به زبان و سبک
