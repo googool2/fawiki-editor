@@ -10,18 +10,20 @@ committed; this page records the numbers and what they showed.
 
 | Description version | Result | Runs |
 |---|---|---|
-| v0 (first draft) | see note | — |
+| v0 (first draft) | 10/10 passed (serial re-run) | should 15/15, should-not 0/15 |
 | v1 (current: front-loaded Persian trigger words, "Use this skill for ANY task about Persian Wikipedia …") | **10/10 passed** | should-trigger 15/15 runs, should-not 0/15 runs |
 
 Note on v0: the first two runs used `--num-workers 10` and scored 5/10. That number is not
 valid: `run_eval.py` puts every worker's temporary skill command, all with the same
 description, into one `.claude/commands/` folder, so a run often invoked *another* worker's
 copy and was scored as "not triggered". With one worker the measurement is clean. The
-serial v0 result is: V0_RESULT.
+serial re-run shows v0 already triggered correctly; v1 is kept because it front-loads the
+Persian trigger words and casual phrasings.
 
 Harder near-miss set (`evals/triggers-hard.json`, 4 should / 4 should-not, e.g. an English
 request about fawiki notability vs. a Persian Instagram caption or a fa.wiki dump script):
-HARD_RESULT.
+**8/8 passed** with v1 (should-trigger 11/12 runs: the pure-orthography request
+«تو ویکی‌فا نیم‌فاصله‌های این پاراگراف رو درست کن» triggered 2 of 3 times; should-not 0/12).
 
 ## 2. Output scenarios (`evals/outputs.json`, scenarios 1–3)
 
