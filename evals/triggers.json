@@ -1,0 +1,62 @@
+[
+  {
+    "id": "t1",
+    "should_trigger": true,
+    "query": "یه مقاله ویکی‌پدیا فارسی درباره پل خواجوی اصفهان بنویس، با منبع و جعبه اطلاعات، که بتونم خودم توی ویکی‌پدیا بذارمش",
+    "note": "Write a new fa.wiki article"
+  },
+  {
+    "id": "t2",
+    "should_trigger": true,
+    "query": "این مقاله رو طبق شیوه‌نامه ویکی‌فا چک کن و بگو چه ایرادهایی داره:\n'''کوه دماوند''' بلندترین کوه ايران است که در شمال تهران قرار دارد . ارتفاع آن 5610 متر است.\n== منابع ==\n{{پانویس}}",
+    "note": "Review against fa.wiki MoS"
+  },
+  {
+    "id": "t3",
+    "should_trigger": true,
+    "query": "این مقاله انگلیسی رو برای ویکی‌فا ترجمه کن: https://en.wikipedia.org/wiki/Lake_Urmia — فقط بخش سرآغاز و تاریخچه‌اش کافیه",
+    "note": "Translate en.wiki -> fa.wiki"
+  },
+  {
+    "id": "t4",
+    "should_trigger": true,
+    "query": "یادکرد وب برای این لینک بساز که بذارم تو مقاله ویکی‌پدیا: https://www.irna.ir/news/85123456/",
+    "note": "Build a Persian cite-web template"
+  },
+  {
+    "id": "t5",
+    "should_trigger": true,
+    "query": "چرا مقاله‌م حذف شد؟ دیروز توی ویکی‌پدیای فارسی یه صفحه درباره شرکت نرم‌افزاری‌مون ساختم و امروز یه مدیر پاکش کرده و نوشته «حذف سریع»",
+    "note": "Explain deletion / notability"
+  },
+  {
+    "id": "n1",
+    "should_trigger": false,
+    "query": "یه پست وبلاگ فارسی صمیمی درباره سفر سه‌روزه‌م به شیراز و باغ ارم بنویس، حدود ۸۰۰ کلمه، برای وبلاگ شخصیم",
+    "note": "Persian blog post, not Wikipedia"
+  },
+  {
+    "id": "n2",
+    "should_trigger": false,
+    "query": "Help me draft an English Wikipedia biography of a New Orleans jazz trumpeter for en.wikipedia.org — I have three newspaper sources",
+    "note": "English Wikipedia without any Persian angle"
+  },
+  {
+    "id": "n3",
+    "should_trigger": false,
+    "query": "یه نامه رسمی اداری به مدیرعامل شرکت بنویس برای درخواست یک هفته مرخصی استحقاقی از اول آبان",
+    "note": "Formal Persian letter"
+  },
+  {
+    "id": "n4",
+    "should_trigger": false,
+    "query": "سلسله صفویه چطور به قدرت رسید و شاه اسماعیل چه نقشی داشت؟ خلاصه توضیح بده",
+    "note": "General history question"
+  },
+  {
+    "id": "n5",
+    "should_trigger": false,
+    "query": "توی ویکی داخلی شرکتمون (یه MediaWiki خصوصی روی سرور خودمون) یه جدول wikitext برای فهرست کارمندان و شماره داخلی‌شون بساز",
+    "note": "Wikitext for a private non-Wikipedia wiki"
+  }
+]
