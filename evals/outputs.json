@@ -1,0 +1,75 @@
+{
+  "skill_name": "fawiki-editor",
+  "evals": [
+    {
+      "id": 1,
+      "name": "write-new-article",
+      "prompt": "یه مقاله ویکی‌پدیا فارسی کوتاه (خرد) درباره پل خواجو در اصفهان بنویس. اینترنت ندارم، پس از منابعی که خودت مطمئنی استفاده کن.",
+      "expected_output": "A stub article in fa.wiki wikitext that passes the bundled checks, with no invented citations and a clear AI-use notice.",
+      "files": [],
+      "expectations": [
+        "Runs or explicitly plans a notability check before drafting and states the result",
+        "First sentence contains the title in bold ('''پل خواجو''')",
+        "Every factual claim either carries a <ref> to a source the model can name concretely, or is marked {{مدرک}}; no ISBN, DOI, URL or page number is invented",
+        "Has a == منابع == section with {{پانویس}} and at least one [[رده:...]]",
+        "Output passes scripts/wikitext_check.py with 0 errors",
+        "Output passes scripts/fa_lint.py --check with 0 changes",
+        "Tells the user that the text is a draft written with AI help and must be verified and rewritten by them per fa.wiki practice"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "review-bad-article",
+      "prompt": "این مقاله رو قبل از انتشار طبق شیوه‌نامه ویکی‌فا بازبینی کن و نسخه اصلاح‌شده بده.",
+      "expected_output": "A report built from the two scripts plus a corrected wikitext.",
+      "files": ["examples/article-bad.wikitext"],
+      "expectations": [
+        "Runs scripts/fa_lint.py and scripts/wikitext_check.py on the file (does not hand-fix orthography)",
+        "Report lists at least 10 distinct issues, grouped (orthography / structure / content)",
+        "Flags unattributed peacock wording and missing sources as content issues",
+        "Corrected version passes wikitext_check.py with 0 errors and fa_lint.py --check with 0 changes",
+        "Does not change text inside templates, links, refs or URLs except where wikitext_check flagged a structural error"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "translate-from-enwiki",
+      "prompt": "این بخش از مقاله انگلیسی ویکی‌پدیا رو برای ویکی‌فا ترجمه کن:\n\n'''Lake Urmia''' is an [[endorheic lake|endorheic]] [[salt lake]] in [[Iran]].<ref>{{cite web |url=https://www.britannica.com/place/Lake-Urmia |title=Lake Urmia |website=Encyclopaedia Britannica |access-date=12 March 2024}}</ref> The lake is located between the provinces of [[West Azerbaijan Province|West Azerbaijan]] and [[East Azerbaijan Province|East Azerbaijan]].\n\n== References ==\n{{Reflist}}\n\n[[Category:Lakes of Iran]]",
+      "expected_output": "Persian wikitext with converted templates and links, plus attribution instructions.",
+      "files": [],
+      "expectations": [
+        "Converts {{cite web}} to {{یادکرد وب}} keeping url/title/date values unchanged (no invented fields)",
+        "Converts {{Reflist}} to {{پانویس}}, == References == to == منابع ==, [[Category:...]] to [[رده:...]]",
+        "Links point to Persian article titles or are flagged for the user to verify; does not invent fa titles silently",
+        "Provides {{صفحه ترجمه‌شده|en|Lake Urmia}} for the talk page and an edit summary that names and links the source article and discloses AI help",
+        "Output passes wikitext_check.py with 0 errors"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "cite-web-offline",
+      "prompt": "یادکرد وب برای این لینک بساز: https://www.example.org/news/2023/05/report — فعلاً بدون اینترنت",
+      "expected_output": "A {{یادکرد وب}} built by scripts/cite_builder.py --offline with only the fields it can know.",
+      "files": [],
+      "expectations": [
+        "Calls scripts/cite_builder.py with --offline",
+        "Output template is {{یادکرد وب}} with نشانی= set to the URL and تاریخ بازبینی= set",
+        "Title/author/date fields that cannot be known are left empty or listed as TODO, not invented",
+        "Tells the user which fields they must fill in"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "why-was-it-deleted",
+      "prompt": "مقاله‌ای که درباره استارتاپمون تو ویکی‌پدیا فارسی ساختم حذف شد. فقط سایت خودمون و دو تا رپورتاژ آگهی رو منبع داده بودم. چرا حذف شد و چی کار کنم؟",
+      "expected_output": "Clear explanation grounded in the notability and deletion references, with honest next steps.",
+      "files": [],
+      "expectations": [
+        "Explains that own website and paid advertorials are not independent reliable sources for notability",
+        "Names the likely speedy-deletion / notability ground with a link to the fa.wiki page from references/notability-deletion.md",
+        "Mentions conflict of interest (ویکی‌پدیا:تعارض منافع) or paid-editing disclosure",
+        "Does not promise the article can be restored; suggests concrete paths (independent coverage, draft, asking the deleting admin)"
+      ]
+    }
+  ]
+}

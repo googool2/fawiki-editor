@@ -1,0 +1,57 @@
+name: bench
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: ${{ matrix.os }} · py${{ matrix.python }} · ${{ matrix.deps }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ["3.10", "3.13"]
+        deps: [full]
+        include:
+          - os: ubuntu-latest
+            python: "3.13"
+            deps: minimal   # no mwparserfromhell: the regex fallback must pass too
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install test dependencies
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest
+          if [ "${{ matrix.deps }}" = "full" ]; then python -m pip install mwparserfromhell; fi
+      - name: Unit and command tests
+        run: python -m pytest -q tests bench
+      - name: Synthetic benchmark
+        run: python bench/bench.py
+      - name: Version is consistent
+        shell: bash
+        run: |
+          v_cli=$(python skills/fawiki-editor/scripts/fawiki.py --version | awk '{print $2}')
+          v_plugin=$(python -c "import json;print(json.load(open('.claude-plugin/plugin.json'))['version'])")
+          echo "cli=$v_cli plugin=$v_plugin"
+          test "$v_cli" = "$v_plugin"
+          grep -q "## \[$v_cli\]" CHANGELOG.md
+      - name: Upload benchmark results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bench-${{ matrix.os }}-py${{ matrix.python }}-${{ matrix.deps }}
+          path: |
+            bench/RESULTS.md
+            bench/results.json

@@ -1,0 +1,315 @@
+{
+ "_source": "Built from research notes (search excerpts of each template page; see references/infoboxes.md). confidence: V = names seen in an excerpt of the template page, LOW = summary only. Top-10 by usage is [UNVERIFIED]. Always compare with the live template documentation before publishing.",
+ "infoboxes": {
+  "biography": {
+   "template": "جعبه اطلاعات زندگی‌نامه",
+   "select": [
+    "person",
+    "biography",
+    "شخص",
+    "زندگی‌نامه"
+   ],
+   "confidence": "LOW",
+   "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_زندگی‌نامه",
+   "params": {
+    "name": "نام",
+    "image": "تصویر",
+    "alt": "alt",
+    "caption": "توضیح تصویر",
+    "birth_name": "نام تولد",
+    "birth_date": "زادروز",
+    "birth_place": "زادگاه",
+    "death_date": "تاریخ درگذشت",
+    "death_place": "مکان درگذشت",
+    "nationality": "ملیت",
+    "occupation": "پیشه",
+    "known_for": "شناخته‌شده برای",
+    "resting_place": "آرامگاه",
+    "spouse": "همسر",
+    "children": "فرزندان",
+    "parents": "والدین",
+    "education": "تحصیلات",
+    "years_active": "سال‌های فعالیت",
+    "signature": "امضا"
+   },
+   "core": [
+    "نام",
+    "زادروز",
+    "زادگاه",
+    "پیشه"
+   ],
+   "note": "Name verified by excerpt; param names [LOW]. «جعبه اطلاعات شخص» did not resolve. BLP: no religion in the box."
+  },
+  "settlement": {
+   "template": "جعبه اطلاعات منطقه مسکونی",
+   "select": [
+    "settlement",
+    "city",
+    "شهر",
+    "منطقه مسکونی"
+   ],
+   "confidence": "LOW",
+   "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_منطقه_مسکونی",
+   "params": {
+    "name": "نام",
+    "official_name": "نام رسمی",
+    "settlement_type": "نوع منطقه مسکونی",
+    "subdivision_type1": "نوع زیربخش۱",
+    "subdivision_name1": "نام زیربخش۱",
+    "subdivision_type2": "نوع زیربخش۲",
+    "subdivision_name2": "نام زیربخش۲",
+    "population_total": "کل جمعیت",
+    "elevation_m": "ارتفاع متر",
+    "population_density_km2": "تراکم جمعیت کیلومتر مربع"
+   },
+   "core": [
+    "نام",
+    "نوع منطقه مسکونی",
+    "کل جمعیت"
+   ],
+   "note": "Replaces the deprecated «جعبه اطلاعات شهر ایران». Numbered subdivision names are [UNVERIFIED]."
+  },
+  "iran_village": {
+   "template": "جعبه اطلاعات روستای ایران",
+   "select": [
+    "village",
+    "روستا",
+    "روستای ایران"
+   ],
+   "confidence": "LOW",
+   "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_روستای_ایران",
+   "params": {
+    "name": "نام",
+    "official_name": "نام رسمی",
+    "province": "استان",
+    "county": "شهرستان",
+    "district": "بخش",
+    "rural_district": "دهستان"
+   },
+   "core": [
+    "نام",
+    "استان",
+    "شهرستان",
+    "بخش",
+    "دهستان"
+   ],
+   "note": "Statistical-code and population param names are [UNVERIFIED]; add them by hand from the template doc."
+  },
+  "company": {
+   "template": "جعبه اطلاعات شرکت",
+   "select": [
+    "company",
+    "شرکت"
+   ],
+   "confidence": "V",
+   "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_شرکت",
+   "params": {
+    "name": "نام",
+    "logo": "لوگو",
+    "type": "نوع",
+    "industry": "صنعت",
+    "founded": "بنیان‌گذاری",
+    "founder": "بنیان‌گذار",
+    "founders": "بنیان‌گذاران",
+    "hq": "دفتر مرکزی",
+    "hq_city": "شهر دفتر مرکزی",
+    "hq_country": "کشور دفتر مرکزی",
+    "products": "محصولات",
+    "revenue": "درآمد",
+    "employees": "شمار کارکنان",
+    "parent": "مادر",
+    "owner": "مالک",
+    "brand": "نام تجاری",
+    "website": "وبگاه"
+   },
+   "core": [
+    "نام",
+    "نوع",
+    "صنعت",
+    "بنیان‌گذاری",
+    "دفتر مرکزی"
+   ],
+   "note": "Use «بنیان‌گذاران» when there is more than one founder. NGOs use «جعبه اطلاعات سازمان»."
+  },
+  "film": {
+   "template": "جعبه اطلاعات فیلم",
+   "select": [
+    "film",
+    "movie",
+    "فیلم"
+   ],
+   "confidence": "V",
+   "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_فیلم",
+   "params": {
+    "title": "عنوان",
+    "image": "تصویر",
+    "director": "کارگردان",
+    "producer": "تهیه‌کننده",
+    "writer": "نویسنده",
+    "starring": "بازیگران",
+    "music": "موسیقی",
+    "cinematography": "فیلم‌بردار",
+    "editing": "تدوین",
+    "studio": "استودیو",
+    "distributor": "توزیع‌کننده",
+    "country": "کشور",
+    "language": "زبان",
+    "runtime": "مدت زمان"
+   },
+   "core": [
+    "عنوان",
+    "کارگردان",
+    "کشور",
+    "زبان"
+   ],
+   "note": "Title param is «عنوان», not «نام». «مدت زمان» is [LOW]. Lists use {{فهرست ساده|…}}."
+  },
+  "book": {
+   "template": "جعبه اطلاعات کتاب",
+   "select": [
+    "book",
+    "کتاب"
+   ],
+   "confidence": "V",
+   "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_کتاب",
+   "params": {
+    "name": "نام کتاب",
+    "image": "تصویر",
+    "author": "نویسنده",
+    "translator": "برگرداننده",
+    "country": "کشور",
+    "language": "زبان اصلی",
+    "genre": "سبک",
+    "subject": "موضوع",
+    "publisher": "ناشر",
+    "pub_date": "تاریخ نشر",
+    "isbn": "شابک",
+    "pages": "تعداد_صفحات"
+   },
+   "core": [
+    "نام کتاب",
+    "نویسنده",
+    "ناشر",
+    "تاریخ نشر"
+   ],
+   "note": "Translator is «برگرداننده». Page-count spelling «تعداد_صفحات» is [LOW]."
+  },
+  "university": {
+   "template": "جعبه اطلاعات دانشگاه",
+   "select": [
+    "university",
+    "دانشگاه"
+   ],
+   "confidence": "V",
+   "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_دانشگاه",
+   "params": {
+    "name": "نام",
+    "latin_name": "نام_لاتین",
+    "motto": "شعار",
+    "type": "نوع",
+    "established": "تأسیس",
+    "founders": "بنیانگذاران",
+    "president": "رئیس",
+    "students": "دانشجویان",
+    "address": "نشانی",
+    "location": "موقعیت",
+    "city": "شهر",
+    "country": "کشور",
+    "website": "وبگاه"
+   },
+   "core": [
+    "نام",
+    "نوع",
+    "تأسیس",
+    "شهر",
+    "کشور"
+   ],
+   "note": "«تأسیس» in Solar Hijri (Gregorian in parentheses for foreign universities). Website param name is [LOW]."
+  },
+  "country": {
+   "template": "جعبه اطلاعات کشور",
+   "select": [
+    "country",
+    "کشور"
+   ],
+   "confidence": "LOW",
+   "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_کشور",
+   "params": {
+    "native_name": "نام بومی",
+    "official_name": "نام رسمی",
+    "common_name": "نام رایج",
+    "flag": "تصویر پرچم",
+    "coat_of_arms": "تصویر نشان",
+    "capital": "پایتخت",
+    "largest_city": "بزرگ‌ترین شهر",
+    "official_languages": "زبان‌های رسمی",
+    "government_type": "نوع حکومت",
+    "currency": "واحد پول",
+    "currency_code": "کد واحد پول"
+   },
+   "core": [
+    "نام رایج",
+    "پایتخت"
+   ],
+   "note": "Search summary was partial; verify every name. The page also documents English {{Infobox country}} params."
+  },
+  "album": {
+   "template": "جعبه اطلاعات آلبوم",
+   "select": [
+    "album",
+    "آلبوم"
+   ],
+   "confidence": "V",
+   "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_آلبوم",
+   "params": {
+    "name": "نام",
+    "type": "نوع",
+    "artist": "هنرمند",
+    "cover": "جلد",
+    "caption": "توضیح تصویر",
+    "released": "پخش",
+    "recorded": "ضبط",
+    "studio": "استودیو",
+    "genre": "سبک",
+    "length": "زمان",
+    "language": "زبان",
+    "label": "ناشر",
+    "producer": "تهیه‌کننده"
+   },
+   "core": [
+    "نام",
+    "نوع",
+    "هنرمند",
+    "پخش"
+   ],
+   "note": "«پخش» = released, «زمان» = length, «ناشر» = record label."
+  },
+  "musical_artist": {
+   "template": "جعبه اطلاعات هنرمند موسیقی",
+   "select": [
+    "musical_artist",
+    "musician",
+    "singer",
+    "band",
+    "هنرمند موسیقی",
+    "خواننده"
+   ],
+   "confidence": "V",
+   "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_هنرمند_موسیقی",
+   "params": {
+    "name": "نام",
+    "image": "تصویر",
+    "background": "پیش‌زمینه",
+    "genre": "سبک",
+    "instrument": "ساز",
+    "notable_instruments": "سازهای برجسته",
+    "years_active": "سال‌های فعالیت",
+    "label": "ناشر"
+   },
+   "core": [
+    "پیش‌زمینه"
+   ],
+   "note": "«پیش‌زمینه» values: خواننده_تک / گروه (sets colour). نام/تصویر are [LOW]. Record label is «ناشر»."
+  }
+ }
+}

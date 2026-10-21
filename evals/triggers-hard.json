@@ -1,0 +1,10 @@
+[
+  {"id": "h1", "should_trigger": true, "query": "i'm a new editor on Persian Wikipedia, can you check my draft about a Tabriz football club before I publish? it's in wikitext, I'll paste it", "note": "English request about fa.wiki"},
+  {"id": "h2", "should_trigger": true, "query": "جعبه اطلاعات فیلم «گاو» مهرجویی رو برای ویکی‌پدیا درست کن، کارگردان و بازیگراش رو دارم", "note": "Infobox only"},
+  {"id": "h3", "should_trigger": true, "query": "تو ویکی‌فا نیم‌فاصله‌های این پاراگراف رو درست کن و ی و ک عربی‌ها رو هم: «اين كتاب ها را مي خوانم»", "note": "Pure orthography fix for fa.wiki"},
+  {"id": "h4", "should_trigger": true, "query": "Is this startup notable enough for a fawiki article? We have two press releases and an interview on our own blog.", "note": "Notability question in English"},
+  {"id": "n6", "should_trigger": false, "query": "این متن فارسی رو از نظر نیم‌فاصله و غلط املایی درست کن، برای کپشن اینستاگرام فروشگاهمه", "note": "Persian orthography, not Wikipedia"},
+  {"id": "n7", "should_trigger": false, "query": "How many articles does Persian Wikipedia have compared to Arabic Wikipedia? Just give me rough numbers", "note": "Trivia about fa.wiki, no editing"},
+  {"id": "n8", "should_trigger": false, "query": "Translate this English paragraph about Lake Urmia into Persian for my geography class handout", "note": "Translation, not for Wikipedia"},
+  {"id": "n9", "should_trigger": false, "query": "write a python script that downloads the Persian Wikipedia XML dump and counts word frequencies", "note": "Data engineering on fa.wiki dump"}
+]

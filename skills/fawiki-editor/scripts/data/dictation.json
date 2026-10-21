@@ -1,0 +1,265 @@
+{
+"_source": "Curated subset of unambiguous entries from fa.wiki's اشتباه‌یاب dictionary (checkdictation-fa/zz_Wrong_word_dict.txt), the cosmetic-changes bot and the ابرابزار port in PersianWikipedia/fawikibot (MIT). Entries where the tools disagree (e.g. بنیانگذار, اساتید, مربوطه, فوق‌الذکر, آیت الله) are deliberately left out.",
+"entries": [
+{
+"wrong": "اطاق",
+"right": "اتاق",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L41"
+},
+{
+"wrong": "امپراطور",
+"right": "امپراتور",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L52"
+},
+{
+"wrong": "بلاخره",
+"right": "بالاخره",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L121"
+},
+{
+"wrong": "برخواست",
+"right": "برخاست",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L93"
+},
+{
+"wrong": "خواستگاه",
+"right": "خاستگاه",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/fa_cosmetic_changes_core.py#L232"
+},
+{
+"wrong": "برگذار",
+"right": "برگزار",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L100"
+},
+{
+"wrong": "برگذاری",
+"right": "برگزاری",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L100"
+},
+{
+"wrong": "خبرگذاری",
+"right": "خبرگزاری",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L265"
+},
+{
+"wrong": "سپاسگذار",
+"right": "سپاسگزار",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L333"
+},
+{
+"wrong": "تلوزیون",
+"right": "تلویزیون",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L187"
+},
+{
+"wrong": "پزشگی",
+"right": "پزشکی",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L158"
+},
+{
+"wrong": "لشگر",
+"right": "لشکر",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L456"
+},
+{
+"wrong": "ملیون",
+"right": "میلیون",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L565"
+},
+{
+"wrong": "ملیارد",
+"right": "میلیارد",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L565"
+},
+{
+"wrong": "ضمینه",
+"right": "زمینه",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/fa_cosmetic_changes_core.py#L234"
+},
+{
+"wrong": "حاظر",
+"right": "حاضر",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/AbarAbzar.py#L628"
+},
+{
+"wrong": "حظور",
+"right": "حضور",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/AbarAbzar.py#L631"
+},
+{
+"wrong": "متاسفانه",
+"right": "متأسفانه",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/fa_cosmetic_changes_core.py#L246"
+},
+{
+"wrong": "تاثیر",
+"right": "تأثیر",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/AbarAbzar.py#L212-L215"
+},
+{
+"wrong": "تالیف",
+"right": "تألیف",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/AbarAbzar.py#L212-L215"
+},
+{
+"wrong": "ژوییه",
+"right": "ژوئیه",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/fa_cosmetic_changes_core.py#L255-L257"
+},
+{
+"wrong": "دیسامبر",
+"right": "دسامبر",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/fa_cosmetic_changes_core.py#L255-L257"
+},
+{
+"wrong": "ویکی پدیا",
+"right": "ویکی‌پدیا",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/AbarAbzar.py#L255-L257"
+},
+{
+"wrong": "نرم افزار",
+"right": "نرم‌افزار",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/fa_cosmetic_changes_core.py#L174"
+},
+{
+"wrong": "زنده‌گی",
+"right": "زندگی",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/AbarAbzar.py#L562"
+},
+{
+"wrong": "ویژه‌گی",
+"right": "ویژگی",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/AbarAbzar.py#L613"
+},
+{
+"wrong": "بعنوان",
+"right": "به‌عنوان",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L116"
+},
+{
+"wrong": "بطور",
+"right": "به‌طور",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L111"
+},
+{
+"wrong": "بوسیله",
+"right": "به‌وسیلهٔ",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L134"
+},
+{
+"wrong": "آنرا",
+"right": "آن را",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L9"
+},
+{
+"wrong": "آن‌را",
+"right": "آن را",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/AbarAbzar.py#L682"
+},
+{
+"wrong": "درحالیکه",
+"right": "درحالی‌که",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L288"
+},
+{
+"wrong": "هیچکدام",
+"right": "هیچ‌کدام",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/AbarAbzar.py#L698-L701"
+},
+{
+"wrong": "هیچکس",
+"right": "هیچ‌کس",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/AbarAbzar.py#L698-L701"
+},
+{
+"wrong": "همینطور",
+"right": "همین‌طور",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/AbarAbzar.py#L692-L697"
+},
+{
+"wrong": "همانطور",
+"right": "همان‌طور",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/AbarAbzar.py#L692-L697"
+},
+{
+"wrong": "گزارشات",
+"right": "گزارش‌ها",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L700"
+},
+{
+"wrong": "پیشنهادات",
+"right": "پیشنهادها",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L700"
+},
+{
+"wrong": "جزییات",
+"right": "جزئیات",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L219"
+},
+{
+"wrong": "جزیی",
+"right": "جزئی",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L219"
+},
+{
+"wrong": "هیات",
+"right": "هیئت",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L618"
+},
+{
+"wrong": "هیأت",
+"right": "هیئت",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L618"
+},
+{
+"wrong": "مساله",
+"right": "مسئله",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/AbarAbzar.py#L688-L689"
+},
+{
+"wrong": "مسأله",
+"right": "مسئله",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/AbarAbzar.py#L688-L689"
+},
+{
+"wrong": "رییس",
+"right": "رئیس",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/AbarAbzar.py#L687"
+},
+{
+"wrong": "سوال",
+"right": "سؤال",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L339"
+},
+{
+"wrong": "سئوال",
+"right": "سؤال",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L339"
+},
+{
+"wrong": "علیرغم",
+"right": "علی‌رغم",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L384"
+},
+{
+"wrong": "علیرقم",
+"right": "علی‌رغم",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L384"
+},
+{
+"wrong": "برعلیه",
+"right": "علیه",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L98-L99"
+},
+{
+"wrong": "فن‌آوری",
+"right": "فناوری",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/checkdictation-fa/zz_Wrong_word_dict.txt#L417"
+},
+{
+"wrong": "فرآیند",
+"right": "فرایند",
+"source": "https://github.com/PersianWikipedia/fawikibot/blob/master/fa_cosmetic_changes_core.py#L193"
+}
+]
+}
