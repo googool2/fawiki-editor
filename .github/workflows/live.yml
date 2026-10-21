@@ -13,6 +13,7 @@ on:
   push:
     paths:
       - "bench/live_check.py"
+      - "bench/live-titles.txt"
       - ".github/workflows/live.yml"
 
 permissions:
@@ -54,8 +55,15 @@ jobs:
       - name: Labels (bench/label.py)
         if: always()
         run: |
-          python bench/label.py "$RUNNER_TEMP/current" "$RUNNER_TEMP/rw/changes.jsonl" --json "$RUNNER_TEMP/rw/labels.json" --show wrong
-          python bench/label.py "$RUNNER_TEMP/current" "$RUNNER_TEMP/rw/changes.jsonl" --show debatable | tail -n +2
+          python bench/label.py "$RUNNER_TEMP/current" "$RUNNER_TEMP/rw/changes.jsonl" --json "$RUNNER_TEMP/rw/labels.json" --show wrong --context 80
+          python bench/label.py "$RUNNER_TEMP/current" "$RUNNER_TEMP/rw/changes.jsonl" --show debatable --context 80
+      - name: Regression articles (bench/live-titles.txt), labels with context
+        if: always()
+        run: |
+          python bench/live_check.py fetch "$RUNNER_TEMP/listed" --titles bench/live-titles.txt
+          python bench/realworld.py "$RUNNER_TEMP/listed" "$RUNNER_TEMP/rw-listed" --tag listed
+          python bench/label.py "$RUNNER_TEMP/listed" "$RUNNER_TEMP/rw-listed/changes.jsonl" --show wrong --context 80
+          python bench/label.py "$RUNNER_TEMP/listed" "$RUNNER_TEMP/rw-listed/changes.jsonl" --show debatable --context 80
       - uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -80,6 +80,7 @@ def main() -> int:
     ap.add_argument("changes")
     ap.add_argument("--json")
     ap.add_argument("--show", choices=["wrong", "debatable"], help="print these changes")
+    ap.add_argument("--context", type=int, default=0, help="with --show: also print N characters around each change")
     a = ap.parse_args()
     lines_cache: dict[str, list[str]] = {}
     counts: dict[str, collections.Counter] = collections.defaultdict(collections.Counter)
@@ -88,10 +89,14 @@ def main() -> int:
         c = json.loads(raw)
         if c["file"] not in lines_cache:
             lines_cache[c["file"]] = (Path(a.corpus) / c["file"]).read_text(encoding="utf-8").split("\n")
-        verdict, why = label(c, lines_cache[c["file"]][c["line"] - 1])
+        line = lines_cache[c["file"]][c["line"] - 1]
+        verdict, why = label(c, line)
         counts[c["rule"]][verdict] += 1
         if a.show == verdict:
             shown.append(f"{c['rule']} «{c['before']}» → «{c['after']}»  ({why})")
+            if a.context:
+                i = max(line.find(c["before"]), 0)
+                shown.append(f"    {c['file']} L{c['line']}: …{line[max(0, i - a.context): i + len(c['before']) + a.context]}…")
     total = collections.Counter()
     for v in counts.values():
         total.update(v)
