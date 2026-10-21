@@ -13,6 +13,15 @@ Semantic versioning, read from the point of view of someone's draft:
   may protect more, warn more or fix more *clearly unambiguous* cases, never less.
 - **Patch**: bug fixes, data corrections (template/parameter names), docs.
 
+## [Unreleased]
+
+### Measured
+- Re-measured the writing task on the released v0.2.0 SKILL.md (3 headless runs, same harness,
+  model, prompt and grader): 7 of 7 checks in every run, including a reasoned notability verdict
+  that the first round never gave. Combined with the earlier review and translation runs, checks
+  passed rise from 95.7% to 100% with the skill (76.8% without), a gain of +23 points.
+- `bench/agents.py --configs` runs a single setting; `bench/charts.py` plots the current numbers.
+
 ## [0.2.0] - 2026-10-21
 
 ### Added
