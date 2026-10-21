@@ -1,0 +1,67 @@
+name: live fa.wiki check
+
+# Checks the skill against the live fa.wikipedia.org: template and parameter names, and a
+# rehearsal on random current articles. Needs network, so it is not part of the main CI.
+on:
+  workflow_dispatch:
+    inputs:
+      articles:
+        description: "Number of random current articles to rehearse on"
+        default: "60"
+  schedule:
+    - cron: "17 4 1 * *"   # monthly drift check
+  push:
+    paths:
+      - "bench/live_check.py"
+      - ".github/workflows/live.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m pip install mwparserfromhell
+      - name: Template and parameter names
+        run: |
+          python bench/live_check.py templates "$RUNNER_TEMP/live"
+          cat "$RUNNER_TEMP/live/templates.md" >> "$GITHUB_STEP_SUMMARY"
+      - name: Fetch random current articles
+        run: python bench/live_check.py fetch "$RUNNER_TEMP/current" --n "${{ github.event.inputs.articles || '60' }}"
+      - name: Rehearsal (apply + undo on copies)
+        run: python bench/realworld.py "$RUNNER_TEMP/current" "$RUNNER_TEMP/rw" --tag current
+      - name: Automatic changes for hand labeling (non-whitespace)
+        if: always()
+        run: |
+          python - <<'PY'
+          import json, os
+          T = os.environ["RUNNER_TEMP"]
+          man = {a["file"]: a for a in json.load(open(f"{T}/current/MANIFEST.json", encoding="utf-8"))["articles"]}
+          for line in open(f"{T}/rw/changes.jsonl", encoding="utf-8"):
+              c = json.loads(line)
+              if c["rule"] in ("FA43", "FA44"):
+                  continue
+              a = man[c["file"]]
+              print(f'{c["rule"]}\t{a["title"]}\tL{c["line"]}\t«{c["before"]}» → «{c["after"]}»'.replace("‌", "␌"))
+          PY
+      - name: Labels (bench/label.py)
+        if: always()
+        run: |
+          python bench/label.py "$RUNNER_TEMP/current" "$RUNNER_TEMP/rw/changes.jsonl" --json "$RUNNER_TEMP/rw/labels.json" --show wrong
+          python bench/label.py "$RUNNER_TEMP/current" "$RUNNER_TEMP/rw/changes.jsonl" --show debatable | tail -n +2
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-check
+          path: |
+            ${{ runner.temp }}/live
+            ${{ runner.temp }}/rw/summary-current.json
+            ${{ runner.temp }}/rw/labels.json
+            ${{ runner.temp }}/current/MANIFEST.json
