@@ -1,0 +1,9 @@
+# Articles whose automatic changes needed a closer look in an earlier live run.
+# bench/live_check.py fetch --titles re-fetches them so the labels can be checked in context.
+فهرست قهرمانان ان‌بی‌ای
+فهرست جایزه‌ها و نامزدی‌های نیئا: اتوماتا
+ایتاکای هومر
+صالح ادهم
+حمله آتش‌افروزی در دوما
+قومول
+فهرست جنبش‌های جدایی‌خواه فعال در آسیا

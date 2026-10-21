@@ -182,7 +182,7 @@ def main(argv: list[str] | None = None) -> int:
         return 2
     print(text)
     box = BOXES[key]
-    if box["confidence"] != "V":
+    if box["confidence"] not in ("V", "LIVE"):
         print(f"NOTE: parameter names for {{{{{box['template']}}}}} are [{box['confidence']}] — compare with {box['source']}",
               file=sys.stderr)
     if missing:

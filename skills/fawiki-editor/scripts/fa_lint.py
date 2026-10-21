@@ -152,6 +152,29 @@ _DICT_RE = re.compile(
 )
 _DICT_MAP = {e["wrong"]: e["right"] for e in _DICT}
 
+
+_NAMESPACES = {"ویکی‌پدیا", "ویکیپدیا", "الگو", "رده", "پرونده", "تصویر", "راهنما", "درگاه", "کاربر", "بحث",
+               "پودمان", "مدیاویکی", "ویژه", "ویکی‌پروژه", "ویپ", "وپ", "رسانه", "کتاب", "پیش‌نویس"}
+
+
+def _space_after_punct(m: re.Match) -> str:
+    """FA42. Leave «ویکی‌پدیا:شیوه‌نامه» (a page name) alone. A dot inside a chain of three or more
+    short segments («آ.ای.اچ.», «دی.آی.سی.ای») is an acronym or a run of initials: leave it too."""
+    if m.group(2) == ":":
+        word = re.search(rf"[{PERSIAN_LETTERS}{ZWNJ}]+$", m.string[:m.start()])
+        if word and (word.group(0) in _NAMESPACES or word.group(0).startswith("بحث")):
+            return m.group(0)
+    if m.group(2) == ".":
+        s, lo, hi = m.string, m.start(), m.end()
+        while lo > 0 and (s[lo - 1] in PERSIAN_LETTERS or s[lo - 1] == "."):
+            lo -= 1
+        while hi < len(s) and (s[hi] in PERSIAN_LETTERS or s[hi] == "."):
+            hi += 1
+        segs = [x for x in s[lo:hi].split(".") if x]
+        if len(segs) >= 3 and all(len(x) <= 3 for x in segs):
+            return m.group(0)
+    return (m.group(1) or m.group(2)) + " "
+
 RULES: list[Rule] = [
     # --- characters ---------------------------------------------------------
     _r("FA09", "control-chars", "[\x00-\x08\x0b\x0c\x0e-\x1f\x7f﻿]", "", "remove control characters and BOM"),
@@ -197,12 +220,12 @@ RULES: list[Rule] = [
     _r("FA32", "persian-question", rf"(?<={FA})[ \t]*\?", "؟", "Latin ? after a Persian word → ؟"),
     _r("FA33", "curly-quotes", rf"[“„]([^”“\n{PH_CLASS}]*{FA}[^”“\n{PH_CLASS}]*)”", _curly, "“…” around Persian → «…»"),
     # --- spacing -----------------------------------------------------------
-    _r("FA40", "space-before-punct", r"(?<=\S)(?<!\.)[ \t]+(?=[.،؛؟!:)»](?:\s|$|[^.\d]))|(?<=\.)[ \t]+(?=[،؛؟!:)»](?:\s|$|[^.\d]))", "",
-       "no space before . ، ؛ ؟ ! : ) »"),
+    _r("FA40", "space-before-punct", r"(?<=\S)(?<![.*#])[ \t]+(?=[.،؛؟!:)»](?:\s|$|[^.\d]))|(?<=\.)[ \t]+(?=[،؛؟!:)»](?:\s|$|[^.\d]))", "",
+       "no space before . ، ؛ ؟ ! : ) » (not after a list marker: «* .us»)"),
     _r("FA41", "space-after-open", r"(?<=[«(])[ \t]+", "", "no space after « ("),
     _r("FA42", "space-after-punct",
-       rf"(?<={FA})([،؛؟])(?={FA})|(?<={FA}{FA})([.:])(?={FA}{FA})", lambda m: (m.group(1) or m.group(2)) + " ",
-       "one space after punctuation between Persian words (not in abbreviations like ه.ق)"),
+       rf"(?<={FA})([،؛؟])(?={FA})|(?<={FA}{FA})([.:])(?={FA}{FA})", _space_after_punct,
+       "one space after punctuation between Persian words (not in abbreviations like ه.ق or chains like دی.آی.سی.ای)"),
     _r("FA43", "double-space", r"(?<=\S)[ \t]{2,}(?=[^\s=])", " ", "collapse runs of spaces (not before =)"),
     _r("FA44", "trailing-space", r"[ \t]+$", "", "strip trailing whitespace"),
     # --- dictionary --------------------------------------------------------

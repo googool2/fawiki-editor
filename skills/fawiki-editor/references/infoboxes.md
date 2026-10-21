@@ -1,14 +1,15 @@
 # Infoboxes (جعبه اطلاعات) on fa.wiki
 
 Load this file when you add, translate or review an infobox.
-**Tags:** [V] = the name or rule appeared in a search excerpt of the cited fa.wiki page · [C] = read in
-fawikibot code (`master` @ `04dde6d`) · [LOW] = search summary only · [UNVERIFIED] = no source.
+**Tags:** [LIVE] = parameter name found in the live template's TemplateData or source on 2026-10-21
+(`bench/live_check.py`) · [V] = the name or rule appeared in a search excerpt of the cited fa.wiki page ·
+[C] = read in fawikibot code (`master` @ `04dde6d`) · [LOW] = search summary only · [UNVERIFIED] = no source.
 Research date: 2026-10-21.
 
 > **Read before use.**
 > 1. The choice of these 10 infoboxes as the most-used ones is **[UNVERIFIED]**: no transclusion counts were reachable.
-> 2. Parameter names come from search excerpts, not from TemplateData, so even [V] names are provisional. **Treat every parameter name as [LOW] until it is checked.** Before you publish, ask the user to compare the infobox with the live template's doc page (links below), or with
->    `https://fa.wikipedia.org/w/api.php?action=templatedata&titles=الگو:<نام الگو>`.
+> 2. Every parameter that `infobox_builder.py` writes was checked against the live template on 2026-10-21 ([LIVE]); six wrong names were fixed then. Names tagged [V], [LOW] or [UNVERIFIED] were not checked. Templates change: if one looks wrong, compare with the doc page (links below) or
+>    `https://fa.wikipedia.org/w/api.php?action=templatedata&titles=الگو:<نام الگو>`. The monthly CI job `live fa.wiki check` repeats the check.
 > 3. "Core" means **core (recommended)**. The research did not confirm that any parameter is *required*.
 > 4. Leave a field out rather than guess its value. Every value needs a source in the article body.
 
@@ -53,8 +54,8 @@ python3 scripts/infobox_builder.py --template film --skeleton    # empty box, ev
 python3 scripts/infobox_builder.py data.yaml                     # data.yaml has a 'template:' key
 python3 scripts/infobox_builder.py data.json --template company --strict   # exit 1 if core params missing
 ```
-Its parameter maps (`scripts/data/infoboxes.json`) follow this file, so they carry the same
-uncertainty. The live doc page wins.
+Its parameter maps (`scripts/data/infoboxes.json`) follow this file and were checked against the
+live templates ([LIVE]). The live doc page still wins.
 
 Skeletons below are on one line to save space. In an article, put one `| param = value` per line, as in §4.
 
@@ -80,15 +81,15 @@ also documents an English `{{Infobox person}}` parameter block [V].
 
 | Param | Meaning | Core | Tag |
 |---|---|---|---|
-| `نام` | display name | core | [V] |
-| `تصویر`, `alt`, `توضیح تصویر` | image, alt text, caption | core | [V] |
-| `نام تولد` | birth name | — | [V] |
-| `زادروز` | birth date (age templates such as «تاریخ تولد و سن») | core | [V] |
-| `زادگاه` | birthplace | core | [V] |
-| `تاریخ درگذشت`, `مکان درگذشت` | death date, place | core if deceased | [V] |
-| `ملیت`, `پیشه` | nationality, occupation | core | [V] |
-| `شناخته‌شده برای` | known for (ZWNJ spelling [LOW]) | — | [V] |
-| `آرامگاه`/`مدفن`, `همسر`, `فرزندان`, `والدین`, `تحصیلات`, `سال‌های فعالیت`, `امضا`, `کارهای برجسته` | misc | — | [LOW] |
+| `نام` | display name | core | [LIVE] |
+| `تصویر`, `alt`, `توضیح تصویر` | image, alt text, caption | core | [LIVE] |
+| `نام تولد` | birth name | — | [LIVE] |
+| `زادروز` | birth date (age templates such as «تاریخ تولد و سن») | core | [LIVE] |
+| `زادگاه` | birthplace | core | [LIVE] |
+| `تاریخ درگذشت`, `مکان درگذشت` | death date, place | core if deceased | [LIVE] |
+| `ملیت`, `پیشه` | nationality, occupation | core | [LIVE] |
+| `شناخته‌شده برای` | known for | — | [LIVE] |
+| `آرامگاه`/`مدفن`, `همسر`, `فرزندان`, `والدین`, `تحصیلات`, `سال‌های فعالیت`, `امضا`, `کارهای برجسته` | misc | — | [LOW]; [LIVE]: `آرامگاه`, `همسر`, `فرزندان`, `والدین`, `تحصیلات`, `سال‌های فعالیت`, `امضا` |
 | `پودمان` (child box gets `جاسازی‌کردن = بله`) | embed a specialised box | — | [LOW] |
 
 ```wikitext
@@ -112,16 +113,16 @@ reading old articles: `استان`, `شهرستان`, `بخش`, `جمعیت`, `�
 
 | Param | Meaning | Core | Tag |
 |---|---|---|---|
-| `نام`, `نام رسمی` | name, official name | core | [V] |
-| `نوع منطقه مسکونی` | settlement type (شهر، روستا…) | core | [V] |
-| `نوع زیربخش` / `نام زیربخش` | subdivision type/name (country, province…) | core | names [V]; numbering (`نوع زیربخش۱`?) [UNVERIFIED] |
-| `کل جمعیت` | total population (needs a census source) | core | [V] |
-| `ارتفاع متر` | elevation in metres | — | [V] |
-| `تراکم جمعیت کیلومتر مربع` | density; the value `auto` computes it | — | [V] |
+| `نام`, `نام رسمی` | name, official name | core | [LIVE] |
+| `نوع منطقه مسکونی` | settlement type (شهر، روستا…) | core | [LIVE] |
+| `نوع زیربخش۱`, `نام زیربخش۱`, `نوع زیربخش۲`, `نام زیربخش۲` | subdivision type/name (country, province…) | core | [LIVE] |
+| `کل جمعیت` | total population (needs a census source) | core | [LIVE] |
+| `ارتفاع متر` | elevation in metres | — | [LIVE] |
+| `تراکم جمعیت کیلومتر مربع` | density; the value `auto` computes it | — | [LIVE] |
 | postal / area code | — | — | names [UNVERIFIED] |
 
 ```wikitext
-{{جعبه اطلاعات منطقه مسکونی | نام = | نام رسمی = | نوع منطقه مسکونی = | نوع زیربخش = | نام زیربخش = | کل جمعیت = | ارتفاع متر = }}
+{{جعبه اطلاعات منطقه مسکونی | نام = | نام رسمی = | نوع منطقه مسکونی = | نوع زیربخش۱ = | نام زیربخش۱ = | کل جمعیت = | ارتفاع متر = }}
 ```
 
 ## 6. `{{جعبه اطلاعات روستای ایران}}`
@@ -130,8 +131,8 @@ Statistical Centre of Iran (SCI) code through a module, with Wikidata P1010 as f
 
 | Param | Meaning | Core | Tag |
 |---|---|---|---|
-| `نام`, `نام رسمی` | name | core | [LOW] |
-| `استان`, `شهرستان`, `بخش`, `دهستان` | administrative chain (all "suggested") | core | [V] |
+| `نام`, `نام رسمی` | name | core | [LIVE] |
+| `استان`, `شهرستان`, `بخش`, `دهستان` | administrative chain (all "suggested") | core | [LIVE] |
 | SCI code param (`کد آماری`?) | statistical code; fills population | — | name **[UNVERIFIED]** |
 | population, census year | latest SCI census | — | names **[UNVERIFIED]** |
 | `دهیار`, area, elevation, phone code, website | misc (area and elevation need a source) | — | [LOW] |
@@ -145,12 +146,12 @@ Statistical Centre of Iran (SCI) code through a module, with Wikidata P1010 as f
 
 | Param | Meaning | Core | Tag |
 |---|---|---|---|
-| `نام`, `لوگو`, `نوع`, `صنعت` | name, logo, type, industry | core | [V] |
-| `بنیان‌گذاری` | founding date | core | [V] |
-| `بنیان‌گذار` / `بنیان‌گذاران` | founder(s); plural form for more than one | core | [V] |
-| `دفتر مرکزی` (also `شهر دفتر مرکزی`, `کشور دفتر مرکزی`) | headquarters | core | [V] |
-| `محصولات`, `درآمد`, `شمار کارکنان` (not `کارکنان`) | products, revenue, employees | — | [V] |
-| `مادر` (leave `مالک` empty for subsidiaries), `نام تجاری`, `وبگاه` | parent, brand, website | — | [V] |
+| `نام`, `لوگو`, `نوع`, `صنعت` | name, logo, type, industry | core | [LIVE] |
+| `بنیان‌گذاری` | founding date | core | [LIVE] |
+| `بنیان‌گذار` / `بنیان‌گذاران` | founder(s); plural form for more than one | core | [LIVE] |
+| `دفتر مرکزی` (also `شهر دفتر مرکزی`, `کشور دفتر مرکزی`) | headquarters | core | [LIVE] |
+| `محصولات`, `درآمد`, `شمار کارکنان` (not `کارکنان`) | products, revenue, employees | — | [LIVE] |
+| `مادر` (leave `مالک` empty for subsidiaries), `نام تجاری`, `وبگاه` | parent, brand, website | — | [LIVE] |
 
 ```wikitext
 {{جعبه اطلاعات شرکت | نام = | لوگو = | نوع = | صنعت = | بنیان‌گذاری = | بنیان‌گذار = | دفتر مرکزی = | وبگاه = }}
@@ -161,11 +162,11 @@ Statistical Centre of Iran (SCI) code through a module, with Wikidata P1010 as f
 
 | Param | Meaning | Core | Tag |
 |---|---|---|---|
-| `عنوان`, `تصویر` | title, poster | core | [V] |
-| `کارگردان`, `تهیه‌کننده`, `نویسنده`, `بازیگران` | director, producer, writer, cast | core | [V] |
-| `موسیقی`, `فیلم‌بردار`, `تدوین`, `استودیو`, `توزیع‌کننده` | music, cinematography, editing, studio, distributor | — | [V] |
-| `کشور`, `زبان` | country, language | core | [V] |
-| `مدت زمان`, budget, box office | runtime, budget, gross | — | [LOW] |
+| `عنوان`, `تصویر` | title, poster | core | [LIVE] |
+| `کارگردان`, `تهیه‌کننده`, `نویسنده`, `بازیگران` | director, producer, writer, cast | core | [LIVE] |
+| `موسیقی`, `فیلم‌بردار`, `تدوین`, `استودیو`, `توزیع‌کننده` | music, cinematography, editing, studio, distributor | — | [LIVE] |
+| `کشور`, `زبان` | country, language | core | [LIVE] |
+| `مدت`; budget `بودجه`, box office `فروش` | runtime, budget, gross | — | `مدت` [LIVE]; `بودجه`, `فروش` in the template source [LIVE] |
 
 ```wikitext
 {{جعبه اطلاعات فیلم | عنوان = | تصویر = | کارگردان = | تهیه‌کننده = | نویسنده = | بازیگران = {{فهرست ساده|…|…}} | کشور = | زبان = }}
@@ -176,12 +177,12 @@ Statistical Centre of Iran (SCI) code through a module, with Wikidata P1010 as f
 
 | Param | Meaning | Core | Tag |
 |---|---|---|---|
-| `نام کتاب` (doc comment: `نام` or `عنوان` also work) | title | core | [V] |
-| `تصویر`, `نویسنده` | cover, author | core | [V] |
-| `برگرداننده` | translator | — | [V] |
-| `کشور`, `زبان اصلی`, `سبک`, `موضوع` | country, original language, genre, subject | — | [V] |
-| `ناشر`, `تاریخ نشر`, `شابک` | publisher, publication date, ISBN | core | [V] |
-| `تعداد_صفحات` | page count (spelled inconsistently in the doc) | — | [LOW] |
+| `نام کتاب` (doc comment: `نام` or `عنوان` also work) | title | core | [LIVE] |
+| `تصویر`, `نویسنده` | cover, author | core | [LIVE] |
+| `برگرداننده` | translator | — | [LIVE] |
+| `کشور`, `زبان اصلی`, `سبک`, `موضوع` | country, original language, genre, subject | — | [LIVE] |
+| `ناشر`, `تاریخ نشر`, `شابک` | publisher, publication date, ISBN | core | [LIVE] |
+| `تعداد_صفحات` | page count (spelled inconsistently in the doc) | — | [LIVE] |
 
 ```wikitext
 {{جعبه اطلاعات کتاب | نام کتاب = | تصویر = | نویسنده = | برگرداننده = | زبان اصلی = | ناشر = | تاریخ نشر = | شابک = }}
@@ -194,42 +195,44 @@ parentheses for foreign universities. `نوع` is one of سراسری (دولت�
 
 | Param | Meaning | Core | Tag |
 |---|---|---|---|
-| `نام`, `نام_لاتین` (underscore) | name, Latin name | core | [V] |
-| `شعار`, `نوع`, `تأسیس`, `بنیانگذاران` | motto, type, founded, founders | core: نوع، تأسیس | [V] |
-| `رئیس`, `دانشجویان` | president, students | — | [V] |
-| `نشانی`, `موقعیت`, `شهر`, `کشور` | address, location, city, country | core: شهر، کشور | [V] |
-| `وبگاه` / `وب‌سایت` | website (both seen) | — | [LOW] |
+| `نام`, `نام_لاتین` (underscore) | name, Latin name | core | [LIVE] |
+| `شعار`, `نوع`, `تأسیس`, `بنیانگذاران` | motto, type, founded, founders | core: نوع، تأسیس | [LIVE] |
+| `رئیس`, `دانشجویان` | president, students | — | [LIVE] |
+| `نشانی`, `موقعیت`, `شهر`, `کشور` | address, location, city, country | core: شهر، کشور | [LIVE] |
+| `وبگاه` | website (`وب‌سایت` also seen [LOW]) | — | [LIVE] |
 
 ```wikitext
 {{جعبه اطلاعات دانشگاه | نام = | نام_لاتین = | نوع = | تأسیس = | رئیس = | شهر = | کشور = }}
 ```
 
 ## 11. `{{جعبه اطلاعات کشور}}`
-[Doc][country]. The search summary was "partial and messy", so all Persian names here are **[LOW]**.
+[Doc][country]. The Persian names below were checked against the template source ([LIVE]).
 The same page documents the English `{{Infobox country}}` block (`common_name`, `capital`,
 `official_languages`, `government_type`, `area_km2`, `population_estimate`, `currency`) [V].
 Countries rarely need a new article; you will usually be editing an existing box.
 
 | Param | Meaning | Tag |
 |---|---|---|
-| `نام بومی`, `نام رسمی`, `نام رایج` (also `نام عادی`?) | native, official, common name | [LOW] |
-| `تصویر پرچم`, `تصویر نشان` | flag, emblem | [LOW] |
-| `پایتخت`, `بزرگ‌ترین شهر` | capital, largest city | [LOW] |
-| `زبان رسمی` / `زبان‌های رسمی`, `نوع حکومت` | official language(s), government | [LOW] |
-| `واحد پول`, `کد واحد پول` | currency, currency code | [LOW] |
+| `نام بومی`, `نام رسمی`, `نام عادی` (not `نام رایج`) | native, official, common name | [LIVE] |
+| `تصویر پرچم`, `تصویر نشان ملی` (not `تصویر نشان`) | flag, emblem | [LIVE] |
+| `پایتخت`, `بزرگ‌ترین شهر` | capital, largest city | [LIVE] |
+| `زبان(های) رسمی` (with the parentheses; not `زبان‌های رسمی`), `نوع حکومت` | official language(s), government | [LIVE] |
+| `واحد پول`, `کد واحد پول` | currency, currency code | [LIVE] |
 
-Skeleton: copy the parameter list from the live doc page. None is given here because the names are unconfirmed.
+```wikitext
+{{جعبه اطلاعات کشور | نام عادی = | نام رسمی = | نام بومی = | تصویر پرچم = | تصویر نشان ملی = | پایتخت = | زبان(های) رسمی = | نوع حکومت = | واحد پول = }}
+```
 
 ## 12. `{{جعبه اطلاعات آلبوم}}`
 [Doc][album]
 
 | Param | Meaning | Core | Tag |
 |---|---|---|---|
-| `نام`, `نوع`, `هنرمند` | name, type (studio, live…), artist | core | [V] |
-| `جلد`, `توضیح تصویر` | cover image, caption | — | [V] |
-| `پخش` | release date | core | [V] |
-| `ضبط`, `استودیو`, `سبک`, `زمان` | recorded, studio, genre, length | — | [V] |
-| `زبان`, `ناشر` (record label), `تهیه‌کننده`, `کارگردان` | language, label, producer, director | — | [V] |
+| `نام`, `نوع`, `هنرمند` | name, type (studio, live…), artist | core | [LIVE] |
+| `جلد`, `توضیح تصویر` | cover image, caption | — | [LIVE] |
+| `پخش` | release date | core | [LIVE] |
+| `ضبط`, `استودیو`, `سبک`, `زمان` | recorded, studio, genre, length | — | [LIVE] |
+| `زبان`, `ناشر` (record label), `تهیه‌کننده`, `کارگردان` | language, label, producer, director | — | [LIVE] |
 
 ```wikitext
 {{جعبه اطلاعات آلبوم | نام = | نوع = | هنرمند = | جلد = | پخش = | سبک = | ناشر = }}
@@ -240,14 +243,14 @@ Skeleton: copy the parameter list from the live doc page. None is given here bec
 
 | Param | Meaning | Core | Tag |
 |---|---|---|---|
-| `نام`, `تصویر` | name, image | core | [UNVERIFIED] (assumed from other boxes) |
-| `پیش‌زمینه` | `خواننده_تک`/`solo_singer` or `گروه`/`group_or_band`; sets the box colour | core | [V] |
-| `سبک`, `ساز`, `سازهای برجسته` | genre, instrument(s), notable instruments | — | [V] |
-| `سال‌های فعالیت` | years active | core | [V] |
-| `ناشر` | record label (there is no `شرکت ضبط`) | — | [V] |
+| `نام`, `تصویر` | name, image | core | [LIVE] |
+| `پس‌زمینه` (not `پیش‌زمینه`) | `خواننده_تک`/`solo_singer` or `گروه`/`group_or_band`; sets the box colour | core | name [LIVE]; values [LOW] |
+| `سبک`, `ساز` (also `سازها`) | genre, instrument(s). There is no notable-instruments parameter | — | [LIVE] |
+| `سال‌های فعالیت` | years active | core | [LIVE] |
+| `ناشر` | record label (there is no `شرکت ضبط`) | — | [LIVE] |
 
 ```wikitext
-{{جعبه اطلاعات هنرمند موسیقی | نام = | تصویر = | پیش‌زمینه = خواننده_تک | سبک = | ساز = | سال‌های فعالیت = | ناشر = }}
+{{جعبه اطلاعات هنرمند موسیقی | نام = | تصویر = | پس‌زمینه = خواننده_تک | سبک = | ساز = | سال‌های فعالیت = | ناشر = }}
 ```
 
 ## 14. Other boxes (short notes)

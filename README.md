@@ -101,6 +101,29 @@ hand and the labels were written down as rules (`bench/label.py`) so the count c
 Whitespace-only fixes (double and trailing spaces) are 60% of all changes and are left out of
 the table above; they are real but they are not why articles get reverted.
 
+### On current articles (live)
+
+A second workflow (`.github/workflows/live.yml`) fetches 60 random current fa.wiki articles,
+applies every rule to copies, undoes, and prints every non-whitespace change for labeling. It runs
+monthly. Four runs on 2026-10-21, 240 articles (text not stored, counts in
+[`bench/live-results.json`](bench/live-results.json)), every change read by hand:
+
+| Rules | Articles | Automatic changes | Wrong |
+|---|---|---|---|
+| v0.2.0 | 120 | 668 | **109, all in one article** |
+| After the fixes below | 120 | 475 | **0** |
+
+The 109 were Uyghur place names in one article: FA01/FA02 changed the Uyghur letters ي/ك/ى in them,
+and the labeling script had marked those changes correct. Runs of Arabic-script words that contain
+letters Persian never uses (Uyghur, Kurdish, Urdu, Pashto, Sindhi) are now protected. The same runs
+found two smaller problems, also fixed: a space inserted inside chains of initials («آ.ای.اچ.»)
+and a space removed in list items like `* .us`. The old 88-article numbers did not move.
+
+**Template names, checked live:** every infobox parameter the builder writes was compared with the
+template's TemplateData and source. 117 of 123 were right; 6 were fixed (e.g. «پس‌زمینه», not
+«پیش‌زمینه»). Five citation parameter names are still unresolved: they are missing from TemplateData
+but fa.wiki's own citation tool emits them, so they were left as they are.
+
 ### Accuracy and safety by version
 
 <picture>
@@ -190,20 +213,28 @@ python3 $S/fa_lint.py --list-rules
 ## Versions and roadmap
 
 See the [CHANGELOG](CHANGELOG.md) for the semver policy (a minor release never loosens safety).
-Next: verify `[LOW]` template
-parameters against live TemplateData once wikipedia.org is reachable; more infoboxes; an
+Next: fold in editor reviews; resolve the five citation parameter names; more infoboxes; an
 opt-in mode that lints link labels.
+
+## Review wanted
+
+No fa.wiki editor has reviewed the rules yet. If you edit Persian Wikipedia, a few minutes help:
+[`docs/review/REVIEWING.md`](docs/review/REVIEWING.md) lists every rule in Persian, and the
+[review form](https://github.com/googool2/fawiki-editor/issues/new?template=rule-review.yml) takes
+one line per rule (درست / قابل‌بحث / غلط). A rule an editor calls wrong, with a reason, becomes a
+warning in the next release.
 
 ## Limits
 
-- **Who reviewed it:** the rules, the labels on the 88 articles and the grading were done by
-  Claude, the model that built the skill. No native fa.wiki editor has reviewed it yet; issues
-  and corrections are welcome.
-- **No live fa.wiki access during research.** Rules come from search excerpts of fa.wiki pages
-  and from fa.wiki's tool code; `[LOW]`/`[UNVERIFIED]` items are listed in
-  [`docs/research-summary.md`](docs/research-summary.md). Infobox parameter names are mostly `[LOW]`.
-- **Corpus:** the wikitext set is from about 2014 and leans toward US entertainment
-  biographies; current articles may show fewer errors and different false positives.
+- **Who reviewed it:** the rules, the labels on every rehearsal and the grading were done by
+  Claude, the model that built the skill. No native fa.wiki editor has reviewed it yet (see
+  above).
+- **Style rules come from search excerpts** of fa.wiki pages and from fa.wiki's tool code;
+  `[LOW]`/`[UNVERIFIED]` items are listed in [`docs/research-summary.md`](docs/research-summary.md).
+  Template and parameter names were checked against the live wiki on 2026-10-21; the style pages
+  themselves were not re-read live.
+- **Corpus:** the 88-article set is from about 2014–2017; the live runs add 240 current random
+  articles, still a small sample.
 - **Tested on:** Linux, macOS and Windows in CI; manual runs on Linux only. Not tested inside
   claude.ai or Codex, only in Claude Code.
 - The scripts cannot tell whether a page, category or template exists on fa.wiki.
