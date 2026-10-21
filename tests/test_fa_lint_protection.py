@@ -108,6 +108,7 @@ def test_arabic_blocks_are_not_folded(block):
     "ٹیلیویژن ميں",                  # Urdu
     "کوردستانێ كوردی",               # Kurdish (Sorani)
     "ښځه يې",                        # Pashto
+    "ئارايۇلتۇز (شىڭشىڭشيا) بازىرى\u200e",  # Uyghur run across parentheses and a direction mark
 ])
 def test_other_arabic_script_languages_are_not_folded(foreign):
     text = "شهر ايران (به زبان محلی: " + foreign + ") و كتاب"

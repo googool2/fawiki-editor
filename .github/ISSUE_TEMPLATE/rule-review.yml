@@ -1,0 +1,57 @@
+name: "بازبینی قواعد / Rule review"
+description: "نظر یک ویراستار ویکی‌پدیای فارسی دربارهٔ قواعد و اصلاح‌های خودکار fawiki-editor"
+title: "[بازبینی] "
+labels: ["review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        سپاس که وقت می‌گذارید. راهنما: [docs/review/REVIEWING.md](https://github.com/googool2/fawiki-editor/blob/main/docs/review/REVIEWING.md).
+        فهرست قواعد: `python3 skills/fawiki-editor/scripts/fa_lint.py --list-rules` یا همان راهنما.
+        Thank you. English is fine too.
+  - type: dropdown
+    id: experience
+    attributes:
+      label: "تجربهٔ شما در ویکی‌پدیای فارسی / Your fa.wiki experience"
+      options:
+        - "ویراستار فعال (بیش از ۱ سال) / active editor, 1+ years"
+        - "ویراستار تازه‌کار / newer editor"
+        - "گشت‌زن، مدیر یا ربات‌گردان / patroller, admin or bot operator"
+        - "ترجیح می‌دهم نگویم / prefer not to say"
+    validations:
+      required: false
+  - type: textarea
+    id: votes
+    attributes:
+      label: "رأی‌ها / Votes"
+      description: |
+        هر خط: شناسه، رأی (درست / قابل‌بحث / غلط) و اگر خواستید دلیل. اگر از صفحهٔ بازبینی تعاملی استفاده کرده‌اید، متن «کپی رأی‌های من» را اینجا بچسبانید.
+        One per line: id, verdict, optional reason.
+      placeholder: |
+        FA01	درست
+        FA22	قابل‌بحث	«بخش ترین» گاهی دو کلمه است
+        FW02	غلط	باید خودکار اصلاح شود
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: missing
+    attributes:
+      label: "قاعده‌ای که نیست ولی باید باشد / Missing rules"
+      description: "خطای رایجی که در پیش‌نویس‌ها می‌بینید و ابزار نمی‌گیرد. اگر صفحهٔ شیوه‌نامه یا بحثی هست، پیوندش را بگذارید."
+    validations:
+      required: false
+  - type: textarea
+    id: other
+    attributes:
+      label: "نظر دیگر / Anything else"
+      description: "الگوها، نام پارامترها، راهنمای ترجمه یا سرشناسی."
+    validations:
+      required: false
+  - type: checkboxes
+    id: credit
+    attributes:
+      label: "اعتبار / Credit"
+      options:
+        - label: "نام کاربری‌ام در یادداشت انتشار نسخهٔ بعد بیاید. / Credit my username in the release notes."
+          required: false

@@ -83,6 +83,7 @@ def template_info(name: str) -> dict:
     src = page_source(info["resolved"])
     info["source_params"] = sorted(set(re.findall(r"\{\{\{\s*([^{}|=\n]+?)\s*[|}]", src)))
     info["uses_module"] = "#invoke" in src
+    info["modules"] = sorted(set(m.strip() for m in re.findall(r"\{\{\s*#invoke:\s*([^|}]+)", src)))
     return info
 
 
@@ -116,8 +117,21 @@ def cmd_templates(out: Path) -> int:
         report["infoboxes"][key] = {"template": box["template"], "info": {k: v for k, v in info.items() if k != "source_params"},
                                     "params": rows, "td_required": info["required"], "all_params": all_params(info)}
         time.sleep(0.2)
+    module_cache: dict[str, str] = {}
+
+    def module_text(names: list[str]) -> str:
+        out = []
+        for n in names:
+            base = n if n.startswith(("پودمان:", "Module:")) else "پودمان:" + n
+            for page in (base, base + "/Configuration", base + "/Whitelist", base + "/fa/Configuration"):
+                if page not in module_cache:
+                    module_cache[page] = page_source(page)
+                out.append(module_cache[page])
+        return "\n".join(out)
+
     for key, spec in citations.items():
         info = template_info(spec["template"])
+        cs1_text = module_text(info.get("modules", [])) + "\n" + "\n".join(cs1.values())
         rows = {}
         for en, fa in spec["params"].items():
             st = classify(fa, info, cs1_text) if info["exists"] else "template missing"
@@ -125,7 +139,8 @@ def cmd_templates(out: Path) -> int:
                                           if re.search(r"['\"]" + re.escape(en.replace("_", "-")) + r"#?['\"]", ln)))[:3]
             rows[fa] = {"status": st, "module_lines": evidence if not st.startswith("confirmed") else []}
         report["citations"][key] = {"template": spec["template"], "exists": info["exists"], "params": rows,
-                                    "all_params": all_params(info), "uses_module": info.get("uses_module")}
+                                    "all_params": all_params(info), "uses_module": info.get("uses_module"),
+                                    "modules": info.get("modules", [])}
     for name in known["known_templates"]:
         if name.isascii():
             continue
@@ -154,7 +169,8 @@ def cmd_templates(out: Path) -> int:
         for key, r in report[section].items():
             rows = r["params"]
             ok = sum(v["status"].startswith("confirmed") for v in rows.values())
-            md.append(f"### {r['template']}: {ok}/{len(rows)} confirmed" + (" (calls a module)" if r.get("uses_module") else "")
+            md.append(f"### {r['template']}: {ok}/{len(rows)} confirmed"
+                      + (f" (invokes {', '.join(r['modules']) or 'a module'})" if r.get("uses_module") else "")
                       + (f" (TemplateData: {'yes' if r.get('info', {}).get('templatedata') else 'no'})" if section == "infoboxes" else ""))
             missing = False
             for p, v in rows.items():

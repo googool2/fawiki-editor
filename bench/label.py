@@ -37,9 +37,9 @@ def visible(text: str) -> str:
 
 
 def latin_dominant(line: str, frag: str) -> bool:
-    i = line.find(frag)
-    window = line[max(0, i - 60): i + len(frag) + 40] if i >= 0 else line
-    window = visible(re.sub(r"\[?https?://\S+", " ", window))
+    seen = visible(re.sub(r"\[?https?://\S+", " ", line))  # templates and URLs are protected: never the change
+    i = seen.find(frag)
+    window = seen[max(0, i - 60): i + len(frag) + 40] if i >= 0 else seen
     latin = len(re.findall(r"[A-Za-z]", window))
     persian = len(re.findall(f"[{FA}]", window))
     return latin > persian

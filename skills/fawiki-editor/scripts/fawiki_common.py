@@ -101,15 +101,16 @@ _MD_LINK_TARGET = re.compile(r"\]\([^)\s]+\)")
 def _foreign_script_spans(text: str) -> list[tuple[int, int]]:
     """Runs of Arabic-script words in another language (see _FOREIGN_LETTERS).
 
-    A word with a foreign letter starts a run; the run grows over neighbours joined by
-    plain spaces that contain ي/ك/ى or foreign letters («شەرقىي كوچا باشقارمىسى»)."""
+    A word with a foreign letter starts a run; the run grows over neighbours joined by spaces,
+    parentheses or direction marks that contain ي/ك/ى or foreign letters («شەرقىي كوچا باشقارمىسى»,
+    «ئارايۇلتۇز (شىڭشىڭشيا) بازىرى»)."""
     if not _FOREIGN.search(text):
         return []
     words = [(m.start(), m.end()) for m in _AR_WORD.finditer(text)]
 
     def joined(a: int, b: int) -> bool:
         gap = text[a:b]
-        return bool(gap) and all(c in " \u00a0\u200e\u200f" for c in gap)
+        return bool(gap) and len(gap) <= 4 and all(c in " ()\u00a0\u200e\u200f" for c in gap)
 
     runs: list[tuple[int, int]] = []
     for k, (s, e) in enumerate(words):

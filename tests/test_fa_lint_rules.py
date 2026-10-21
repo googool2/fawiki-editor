@@ -120,6 +120,7 @@ def test_rule_ids_unique():
     "''Nordic Journal of African Studies'' 15(3): 296–313.",       # English bibliography line
     "«Oliver! (1968) - IMDb»",                                     # English title in prose
     "آ.ای.اچ. گوکوپ", "شرکت دی.آی.سی.ای",                        # chains of initials / acronyms
+    "طبق ویکی‌پدیا:شیوه‌نامه و الگو:جعبه اطلاعات", "در بحث کاربر:نمونه",  # page names in prose
 ])
 def test_realworld_regressions_unchanged(text):
     assert lint(text).fixed == text
@@ -131,3 +132,7 @@ def test_thousands_dot_is_a_warning():
 
 def test_two_initials_still_get_a_space():
     assert lint("اثر اچ.جی. ولز").fixed == "اثر اچ. جی. ولز"
+
+
+def test_colon_between_words_still_gets_a_space():
+    assert lint("لبنان:در این روز").fixed == "لبنان: در این روز"
