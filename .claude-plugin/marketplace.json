@@ -1,0 +1,12 @@
+{
+  "name": "fawiki-tools",
+  "owner": { "name": "googool2" },
+  "description": "Skills for editing Persian Wikipedia (fa.wikipedia.org).",
+  "plugins": [
+    {
+      "name": "fawiki-editor",
+      "source": "./",
+      "description": "Write, translate, review and lint Persian Wikipedia wikitext per the fa.wiki Manual of Style."
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "name": "fawiki-editor",
+  "version": "0.1.0",
+  "description": "Persian Wikipedia (fa.wikipedia.org) layer for Claude: write, translate, review and lint fa.wiki wikitext per the fa.wiki Manual of Style, with deterministic orthography and structure checkers.",
+  "author": { "name": "googool2" },
+  "homepage": "https://github.com/googool2/fawiki-editor",
+  "license": "MIT",
+  "keywords": ["wikipedia", "persian", "farsi", "fawiki", "wikitext", "linter", "ویکی‌پدیا"],
+  "skills": ["./"]
+}
