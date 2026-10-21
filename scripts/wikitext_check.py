@@ -144,7 +144,7 @@ def check(text: str) -> list[Issue]:
     if has_refs and not has_reflist:
         issues.append(Issue("WC04", "E", 1, "article has <ref> tags but no {{پانویس}} (or <references/>) to display them"))
     if not has_refs and not is_redirect:
-        issues.append(Issue("WC17", "W", 1, "no <ref> citations: fa.wiki articles need reliable sources (ویکی‌پدیا:اثبات‌پذیری)"))
+        issues.append(Issue("WC17", "W", 1, "no <ref> citations: fa.wiki articles need reliable sources (ویکی‌پدیا:تأییدپذیری)"))
 
     if not is_redirect and not re.search(r"\[\[\s*(?:رده|Category)\s*:", clean, re.IGNORECASE):
         issues.append(Issue("WC05", "E", line_at(clean, len(clean)), "no category: add at least one [[رده:...]] at the end"))

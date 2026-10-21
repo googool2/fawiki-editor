@@ -41,7 +41,7 @@
         "Converts {{cite web}} to {{یادکرد وب}} keeping url/title/date values unchanged (no invented fields)",
         "Converts {{Reflist}} to {{پانویس}}, == References == to == منابع ==, [[Category:...]] to [[رده:...]]",
         "Links point to Persian article titles or are flagged for the user to verify; does not invent fa titles silently",
-        "Provides the {{ترجمه}} attribution (or the exact talk-page template the references describe) and an edit summary that names the source article and revision",
+        "Provides {{صفحه ترجمه‌شده|en|Lake Urmia}} for the talk page and an edit summary that names and links the source article and discloses AI help",
         "Output passes wikitext_check.py with 0 errors"
       ]
     },
@@ -67,7 +67,7 @@
       "expectations": [
         "Explains that own website and paid advertorials are not independent reliable sources for notability",
         "Names the likely speedy-deletion / notability ground with a link to the fa.wiki page from references/notability-deletion.md",
-        "Mentions conflict of interest (ویکی‌پدیا:تضاد منافع) or paid-editing disclosure",
+        "Mentions conflict of interest (ویکی‌پدیا:تعارض منافع) or paid-editing disclosure",
         "Does not promise the article can be restored; suggests concrete paths (independent coverage, draft, asking the deleting admin)"
       ]
     }

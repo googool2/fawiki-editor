@@ -87,3 +87,15 @@ def test_spans_do_not_overlap():
     spans = find_protected_spans(text)
     for (s1, e1, _), (s2, e2, _) in zip(spans, spans[1:]):
         assert e1 <= s2
+
+
+@pytest.mark.parametrize("block", [
+    "{{عربی}}قال رسول الله في كتابه{{پایان عربی}}",
+    "{{آغاز عربی}}\nفي كتابه 12\n{{پایان عربی}}",
+    "{{عبارت عربی|في كتابه}}",
+])
+def test_arabic_blocks_are_not_folded(block):
+    text = "متن ي " + block + " متن ك"
+    out = lint(text).fixed
+    assert block in out
+    assert out.startswith("متن ی ") and out.endswith(" متن ک")
