@@ -1,5 +1,9 @@
 # Eval results (2026-10-21)
 
+> The headline agent benchmark is now `bench/agents.py` (18 headless runs, results in
+> `bench/agents-results.json` and the README). Section 2 below is the earlier single-rep
+> subagent comparison, kept for the record.
+
 Runs used the `skill-creator` tooling: `scripts/run_eval.py` for triggering and paired
 subagent runs (with the skill vs. without any skill) for outputs. Raw transcripts are not
 committed; this page records the numbers and what they showed.

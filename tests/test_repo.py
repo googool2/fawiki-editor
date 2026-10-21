@@ -76,3 +76,13 @@ def test_lint_and_check_scripts_do_not_import_network_modules():
     for name in ("fa_lint.py", "wikitext_check.py", "fawiki_common.py", "infobox_builder.py"):
         src = (SKILL / "scripts" / name).read_text(encoding="utf-8")
         assert not re.search(r"^\s*(?:import|from)\s+(?:urllib|http|socket|requests)", src, re.M), name
+
+
+@pytest.mark.parametrize("readme", ["README.md", "README.fa.md"])
+def test_readme_relative_links_exist(readme):
+    text = (ROOT / readme).read_text(encoding="utf-8")
+    targets = re.findall(r'\]\(([^)\s]+)\)', text) + re.findall(r'(?:src|srcset)="([^"]+)"', text)
+    for t in targets:
+        if t.startswith(("http://", "https://", "#", "mailto:")):
+            continue
+        assert (ROOT / t.split("#")[0]).exists(), f"{readme}: missing {t}"
