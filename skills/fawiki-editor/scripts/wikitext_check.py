@@ -113,6 +113,7 @@ def _norm(name: str) -> str:
 
 
 def check(text: str) -> list[Issue]:
+    text = text.replace("\r\n", "\n").replace("\r", "\n")  # read-only check: CRLF behaves like LF
     issues: list[Issue] = []
     clean = _blank_opaque(text)
     is_redirect = bool(re.match(r"\s*#(?:REDIRECT|تغییرمسیر|تغییر_مسیر)", clean, re.IGNORECASE))

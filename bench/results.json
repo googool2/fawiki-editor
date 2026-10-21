@@ -1,0 +1,154 @@
+{
+  "version": "0.2.0",
+  "python": "3.13.16",
+  "os": "Linux",
+  "mwparserfromhell": true,
+  "planted_fixes": "16/16",
+  "traps_untouched": "36/36",
+  "lint_seconds_0_5MB": 0.65,
+  "passed": 28,
+  "total": 28,
+  "ok": true,
+  "checks": [
+    {
+      "check": "biography: apply exit 0",
+      "pass": true,
+      "detail": "exit 0"
+    },
+    {
+      "check": "biography: protected regions byte-identical",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "biography: template/link inventory unchanged",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "biography: idempotent",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "biography: no structural errors after fix",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "biography: undo byte-identical",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "biography: no leftovers after undo",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "city: apply exit 0",
+      "pass": true,
+      "detail": "exit 0"
+    },
+    {
+      "check": "city: protected regions byte-identical",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "city: template/link inventory unchanged",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "city: idempotent",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "city: no structural errors after fix",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "city: undo byte-identical",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "city: no leftovers after undo",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "tech: apply exit 0",
+      "pass": true,
+      "detail": "exit 0"
+    },
+    {
+      "check": "tech: protected regions byte-identical",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "tech: template/link inventory unchanged",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "tech: idempotent",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "tech: warnings reported, not applied",
+      "pass": true,
+      "detail": "got ['FW01', 'FW02', 'FW03', 'FW06']"
+    },
+    {
+      "check": "tech: undo byte-identical",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "tech: no leftovers after undo",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "crlf: line endings kept",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "crlf: undo byte-identical",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "3 articles: all planted fixes applied",
+      "pass": true,
+      "detail": "16/16"
+    },
+    {
+      "check": "3 articles: all traps untouched",
+      "pass": true,
+      "detail": "36/36"
+    },
+    {
+      "check": "broken draft: planted structural errors found",
+      "pass": true,
+      "detail": "want ['WC01', 'WC03', 'WC05', 'WC06'] got ['WC01', 'WC03', 'WC05', 'WC06']"
+    },
+    {
+      "check": "cite --offline: no network",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "check": "speed: ~0.5 MB lints in under 20 s",
+      "pass": true,
+      "detail": "0.13 MB in 0.65 s"
+    }
+  ]
+}

@@ -78,3 +78,10 @@ def test_exit_codes(tmp_path):
     assert main([str(good)]) == 0
     assert main([str(bad)]) == 1
     assert main([str(good), "--strict"]) == 0
+
+
+def test_crlf_input_behaves_like_lf():
+    text = "'''ع''' متن.<ref>x</ref>\n== See also ==\n{{پانویس}}\n[[رده:x]]\n"
+    lf = [(i.code, i.line) for i in check(text)]
+    crlf = [(i.code, i.line) for i in check(text.replace("\n", "\r\n"))]
+    assert lf == crlf and ("WC09", 2) in lf
