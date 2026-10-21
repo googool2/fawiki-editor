@@ -6,7 +6,7 @@ Each run gets a fresh folder (outside the repo) with the task's input files; the
 model. Grading is mechanical (see GRADERS). Results are appended to OUT/runs.jsonl after
 every run, so a crash loses nothing; `--resume` skips finished runs.
 
-Usage: python bench/agents.py OUT_DIR [--reps 3] [--tasks write,review,translate]
+Usage: python bench/agents.py OUT_DIR [--reps 3] [--tasks write,review,translate] [--configs with_skill]
                               [--model claude-opus-5-5] [--workers 3] [--resume]
 Then:  python bench/agents.py OUT_DIR --summarize > bench/agents-results.json
 """
@@ -177,6 +177,7 @@ def main() -> int:
     ap.add_argument("out")
     ap.add_argument("--reps", type=int, default=3)
     ap.add_argument("--tasks", default="write,review,translate")
+    ap.add_argument("--configs", default="with_skill,without_skill")
     ap.add_argument("--model", default="claude-opus-5-5")
     ap.add_argument("--workers", type=int, default=3)
     ap.add_argument("--resume", action="store_true")
@@ -193,7 +194,7 @@ def main() -> int:
     done = set()
     if a.resume and (out / "runs.jsonl").exists():
         done = {(r["task"], r["config"], r["rep"]) for r in map(json.loads, (out / "runs.jsonl").read_text(encoding="utf-8").splitlines())}
-    jobs = [(t, c, r) for r in range(1, a.reps + 1) for t in a.tasks.split(",") for c in ("with_skill", "without_skill")
+    jobs = [(t, c, r) for r in range(1, a.reps + 1) for t in a.tasks.split(",") for c in a.configs.split(",")
             if (t, c, r) not in done]
     lock = threading.Lock()
     with ThreadPoolExecutor(max_workers=a.workers) as ex:

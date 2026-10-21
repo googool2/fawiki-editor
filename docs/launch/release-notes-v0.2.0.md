@@ -22,13 +22,14 @@ Or copy `skills/fawiki-editor` into `~/.claude/skills/`.
 ## Measured
 - 88 real fa.wiki articles, every automatic change labeled by hand: 12 wrong of 759 before the
   rehearsal fixes, **0 wrong of 742** in v0.2.0; protected regions never changed.
-- 18 headless agent runs: **95.7%** of checks passed with the skill vs **76.8%** without.
+- Headless agent runs: **100%** of checks passed with the skill vs **76.8%** without (18 runs,
+  then 3 more for the writing task after the notability fix below).
 - Synthetic benchmark green on Linux, macOS and Windows, Python 3.10 and 3.13.
 
 ## Honest note
-The agent gain (+18.9 points) is short of the +20 we aimed for and costs about twice as many
-tokens; in the writing task the skill never stated a notability verdict (SKILL.md is fixed,
-not yet re-measured). Rules were researched without live access to fa.wiki, and no native
+In the first 18 runs the skill never stated a notability verdict when writing (gain +18.9,
+short of the +20 target); the fix was re-measured and now passes, but it still costs about twice
+as many tokens. Rules were researched without live access to fa.wiki, and no native
 fa.wiki editor has reviewed the skill yet.
 
 Full list: [CHANGELOG](https://github.com/googool2/fawiki-editor/blob/main/CHANGELOG.md)

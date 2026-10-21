@@ -120,10 +120,16 @@ def main() -> int:
     agents = json.loads((ROOT / "bench" / "agents-results.json").read_text(encoding="utf-8"))
     real = json.loads((ROOT / "bench" / "realworld-results.json").read_text(encoding="utf-8"))
     names = {"write": "Write an article", "review": "Review a draft", "translate": "Translate en→fa"}
+    by_task = agents.get("by_task_current", agents["by_task"])
     rows = [(names[k], [round(100 * v["with_skill"]["pass_rate"]), round(100 * v["without_skill"]["pass_rate"])])
-            for k, v in agents["by_task"].items() if "with_skill" in v and "without_skill" in v]
-    ov = agents["overall"]
-    rows.append(("All tasks", [round(100 * ov["with_skill"]["pass_rate"]), round(100 * ov["without_skill"]["pass_rate"])]))
+            for k, v in by_task.items() if "with_skill" in v and "without_skill" in v]
+    if "overall_current" in agents:
+        oc = agents["overall_current"]
+        rows.append(("All tasks", [round(100 * oc["with_skill_pass_rate"]), round(100 * oc["without_skill_pass_rate"])]))
+    else:
+        ov = agents["overall"]
+        rows.append(("All tasks", [round(100 * ov["with_skill"]["pass_rate"]), round(100 * ov["without_skill"]["pass_rate"])]))
+    remeasured = "; write re-measured after the notability fix" if "by_task_current" in agents else ""
     reps = max(v["with_skill"]["runs"] for v in agents["by_task"].values())
     versions = list(real["versions"].items())
     wrong_rows = [(("before fixes" if "pre" in k else k), [v["labels"].get("wrong", 0)]) for k, v in versions]
@@ -131,7 +137,7 @@ def main() -> int:
     for theme in THEMES:
         (OUT / f"agents-{theme}.svg").write_text(hbar_chart(
             "Does it help agents? Checks passed per task",
-            f"Headless claude -p runs, same prompt and tools, {reps} reps per task and setting",
+            f"Headless claude -p, same prompt and tools, {reps} reps each{remeasured}",
             rows, ["with fawiki-editor", "without the skill"], "%", 100, theme), encoding="utf-8")
         (OUT / f"realworld-{theme}.svg").write_text(hbar_chart(
             "Wrong automatic fixes on 88 real fa.wiki articles",

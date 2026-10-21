@@ -161,5 +161,140 @@
       "skill_used_runs": 0,
       "runs": 9
     }
+  },
+  "remeasure_write_after_notability_fix": {
+    "date": "2026-10-21",
+    "runs": 3,
+    "note": "write task, with the skill only, on the released v0.2.0 SKILL.md (notability verdict back in the delivery list); same harness, model, prompt and grader",
+    "result": {
+      "pass_rate": 1.0,
+      "runs": 3,
+      "assertions_passed": {
+        "output file written": 3,
+        "fa_lint: 0 changes": 3,
+        "wikitext_check: 0 errors": 3,
+        "AI use disclosed to the user": 3,
+        "bold title in lead": 3,
+        "no unverifiable citation details (URL/ISBN/DOI/page) offline": 3,
+        "notability discussed": 3
+      },
+      "seconds_median": 41.9,
+      "turns_median": 8,
+      "cost_median": 0.279
+    },
+    "total_cost_usd": 0.83
+  },
+  "by_task_current": {
+    "write": {
+      "with_skill": {
+        "pass_rate": 1.0,
+        "runs": 3,
+        "assertions_passed": {
+          "output file written": 3,
+          "fa_lint: 0 changes": 3,
+          "wikitext_check: 0 errors": 3,
+          "AI use disclosed to the user": 3,
+          "bold title in lead": 3,
+          "no unverifiable citation details (URL/ISBN/DOI/page) offline": 3,
+          "notability discussed": 3
+        },
+        "seconds_median": 41.9,
+        "turns_median": 8,
+        "cost_median": 0.279
+      },
+      "without_skill": {
+        "pass_rate": 0.714,
+        "runs": 3,
+        "assertions_passed": {
+          "output file written": 3,
+          "fa_lint: 0 changes": 3,
+          "wikitext_check: 0 errors": 3,
+          "AI use disclosed to the user": 0,
+          "bold title in lead": 3,
+          "no unverifiable citation details (URL/ISBN/DOI/page) offline": 3,
+          "notability discussed": 0
+        },
+        "seconds_median": 36.2,
+        "turns_median": 2,
+        "cost_median": 0.132
+      }
+    },
+    "review": {
+      "with_skill": {
+        "pass_rate": 1.0,
+        "runs": 3,
+        "assertions_passed": {
+          "output file written": 3,
+          "fa_lint: 0 changes": 3,
+          "wikitext_check: 0 errors": 3,
+          "AI use disclosed to the user": 3,
+          "citation template left byte-identical": 3,
+          "peacock word «زیباترین» removed": 3,
+          "unpublished source (interview) not kept as a ref": 3
+        },
+        "seconds_median": 58.7,
+        "turns_median": 9,
+        "cost_median": 0.249
+      },
+      "without_skill": {
+        "pass_rate": 0.81,
+        "runs": 3,
+        "assertions_passed": {
+          "output file written": 3,
+          "fa_lint: 0 changes": 3,
+          "wikitext_check: 0 errors": 3,
+          "AI use disclosed to the user": 0,
+          "citation template left byte-identical": 2,
+          "peacock word «زیباترین» removed": 3,
+          "unpublished source (interview) not kept as a ref": 3
+        },
+        "seconds_median": 52.0,
+        "turns_median": 5,
+        "cost_median": 0.201
+      }
+    },
+    "translate": {
+      "with_skill": {
+        "pass_rate": 1.0,
+        "runs": 3,
+        "assertions_passed": {
+          "output file written": 3,
+          "fa_lint: 0 changes": 3,
+          "wikitext_check: 0 errors": 3,
+          "AI use disclosed to the user": 3,
+          "{{یادکرد وب}} used, no {{cite web}}": 3,
+          "source URL kept exactly": 3,
+          "no [[Category:]] / [[en:]] links": 3,
+          "talk-page template {{صفحه ترجمه‌شده}} given": 3,
+          "edit summary credits the source article": 3
+        },
+        "seconds_median": 42.2,
+        "turns_median": 10,
+        "cost_median": 0.327
+      },
+      "without_skill": {
+        "pass_rate": 0.778,
+        "runs": 3,
+        "assertions_passed": {
+          "output file written": 3,
+          "fa_lint: 0 changes": 3,
+          "wikitext_check: 0 errors": 3,
+          "AI use disclosed to the user": 0,
+          "{{یادکرد وب}} used, no {{cite web}}": 3,
+          "source URL kept exactly": 3,
+          "no [[Category:]] / [[en:]] links": 3,
+          "talk-page template {{صفحه ترجمه‌شده}} given": 0,
+          "edit summary credits the source article": 3
+        },
+        "seconds_median": 28.3,
+        "turns_median": 3,
+        "cost_median": 0.126
+      }
+    }
+  },
+  "overall_current": {
+    "with_skill_pass_rate": 1.0,
+    "without_skill_pass_rate": 0.768,
+    "note": "write = re-measured runs; review and translate = original runs (the fix only adds a line to deliveries of new articles)"
   }
 }

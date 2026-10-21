@@ -125,7 +125,7 @@ ellipsis, and abbreviations split apart («ه.ق»). All four are fixed and cove
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/charts/agents-dark.svg">
-  <img src="assets/charts/agents-light.svg" alt="Checks passed: 96% with the skill, 77% without" width="760">
+  <img src="assets/charts/agents-light.svg" alt="Checks passed: 100% with the skill, 77% without" width="760">
 </picture>
 
 Headless `claude -p` runs on the same fixtures, same prompt, same tools, 3 tasks × 3 reps per
@@ -133,7 +133,8 @@ setting, graded by script (`bench/agents.py`):
 
 | | With the skill | Without |
 |---|---|---|
-| Checks passed | **95.7%** | 76.8% |
+| Checks passed, first 18 runs | 95.7% | 76.8% |
+| Checks passed, with the writing task re-measured on v0.2.0 | **100%** | 76.8% |
 | Median time | 44 s | 36 s |
 | Median turns | 9 | 3 |
 | Median tokens | 184k | 60k |
@@ -141,10 +142,16 @@ setting, graded by script (`bench/agents.py`):
 
 What the baseline missed in every run: disclosing AI use to the user, the `{{صفحه ترجمه‌شده}}`
 attribution for translations, and (in 2 of 3 reviews) it edited a parameter inside an existing
-`{{یادکرد وب}}`. What did **not** go as planned: the gain is +18.9 points, short of the +20 the
-design aimed for, it costs about twice as much, and in the writing task the skill never stated
-a notability verdict. SKILL.md has been changed so the verdict is part of every delivery; that
-change has not been re-measured yet.
+`{{یادکرد وب}}`.
+
+What did **not** go as planned at first: in the first 18 runs the skill never stated a
+notability verdict when writing an article (0 of 3), so the gain was +18.9 points, short of the
++20 the design aimed for. The cause was trimming SKILL.md: the instruction had moved into a
+reference file the agent did not open. It is back in SKILL.md's delivery list, and 3 new runs of
+the writing task on v0.2.0 passed every check (3 of 3 gave a reasoned verdict and warned that
+the article probably already exists). With that, the gain is +23 points. Two caveats: the review
+and translation numbers are from the first round (the fix only adds a line to new-article
+deliveries), and the skill still costs about twice as much per task.
 
 Triggering: 10/10 on `evals/triggers.json` and 8/8 on a harder near-miss set, 3 runs each
 (`docs/eval-results.md`).
@@ -183,7 +190,7 @@ python3 $S/fa_lint.py --list-rules
 ## Versions and roadmap
 
 See the [CHANGELOG](CHANGELOG.md) for the semver policy (a minor release never loosens safety).
-Next: re-measure the writing task after the notability change; verify `[LOW]` template
+Next: verify `[LOW]` template
 parameters against live TemplateData once wikipedia.org is reachable; more infoboxes; an
 opt-in mode that lints link labels.
 
