@@ -1,0 +1,208 @@
+{
+ "_source": "Parameter names verified in 5j9/citer lib/generator_fa.py (the fa.wiki citation generator, 2026-10-19) and fawikibot webcite.py; details and tags in references/citations.md. یادکرد خبر names are [LOW]/[UNVERIFIED], so auto-detection never picks it (citer also emits یادکرد وب for news).",
+ "max_authors": 6,
+ "number_digits": "persian",
+ "field_keys": [
+  "url",
+  "title",
+  "author",
+  "date",
+  "website",
+  "work",
+  "publisher",
+  "location",
+  "access_date",
+  "language",
+  "doi",
+  "isbn",
+  "journal",
+  "volume",
+  "issue",
+  "pages",
+  "year",
+  "chapter",
+  "translator",
+  "edition",
+  "archive_url",
+  "archive_date",
+  "agency"
+ ],
+ "templates": {
+  "web": {
+   "template": "یادکرد وب",
+   "params": {
+    "last": "نام خانوادگی",
+    "first": "نام",
+    "author": "نویسنده",
+    "url": "نشانی",
+    "title": "عنوان",
+    "date": "تاریخ",
+    "website": "وبگاه",
+    "work": "اثر",
+    "publisher": "ناشر",
+    "access_date": "تاریخ بازبینی",
+    "language": "کد زبان",
+    "archive_url": "نشانی بایگانی",
+    "archive_date": "تاریخ بایگانی"
+   },
+   "order": [
+    "last",
+    "first",
+    "author",
+    "title",
+    "url",
+    "date",
+    "website",
+    "work",
+    "publisher",
+    "language",
+    "access_date",
+    "archive_url",
+    "archive_date"
+   ],
+   "required": [
+    "url",
+    "title"
+   ],
+   "recommended": [
+    "date",
+    "website"
+   ]
+  },
+  "news": {
+   "template": "یادکرد خبر",
+   "params": {
+    "last": "نام خانوادگی",
+    "first": "نام",
+    "author": "نویسنده",
+    "url": "نشانی",
+    "title": "عنوان",
+    "date": "تاریخ",
+    "website": "ناشر",
+    "publisher": "ناشر",
+    "agency": "خبرگزاری",
+    "access_date": "تاریخ بازبینی",
+    "language": "کد زبان",
+    "archive_url": "نشانی بایگانی",
+    "archive_date": "تاریخ بایگانی"
+   },
+   "order": [
+    "last",
+    "first",
+    "author",
+    "title",
+    "url",
+    "agency",
+    "publisher",
+    "website",
+    "date",
+    "language",
+    "access_date",
+    "archive_url",
+    "archive_date"
+   ],
+   "required": [
+    "url",
+    "title"
+   ],
+   "recommended": [
+    "date",
+    "publisher"
+   ]
+  },
+  "book": {
+   "template": "یادکرد کتاب",
+   "params": {
+    "last": "نام خانوادگی",
+    "first": "نام",
+    "author": "نویسنده",
+    "title": "عنوان",
+    "chapter": "فصل",
+    "translator": "ترجمه",
+    "publisher": "ناشر",
+    "location": "مکان",
+    "edition": "ویرایش",
+    "volume": "جلد",
+    "year": "سال",
+    "date": "تاریخ",
+    "isbn": "شابک",
+    "pages": "صفحه",
+    "url": "نشانی",
+    "language": "زبان",
+    "access_date": "تاریخ بازبینی"
+   },
+   "order": [
+    "last",
+    "first",
+    "author",
+    "title",
+    "chapter",
+    "translator",
+    "edition",
+    "volume",
+    "publisher",
+    "location",
+    "year",
+    "date",
+    "isbn",
+    "pages",
+    "url",
+    "language",
+    "access_date"
+   ],
+   "required": [
+    "title"
+   ],
+   "recommended": [
+    "publisher",
+    "year",
+    "isbn"
+   ]
+  },
+  "journal": {
+   "template": "یادکرد ژورنال",
+   "params": {
+    "last": "نام خانوادگی",
+    "first": "نام",
+    "author": "نویسنده",
+    "title": "عنوان",
+    "journal": "ژورنال",
+    "volume": "جلد",
+    "issue": "شماره",
+    "pages": "صفحه",
+    "year": "سال",
+    "date": "تاریخ",
+    "publisher": "ناشر",
+    "doi": "doi",
+    "url": "نشانی",
+    "language": "زبان",
+    "access_date": "تاریخ بازبینی"
+   },
+   "order": [
+    "last",
+    "first",
+    "author",
+    "title",
+    "journal",
+    "volume",
+    "issue",
+    "pages",
+    "year",
+    "date",
+    "publisher",
+    "doi",
+    "url",
+    "language",
+    "access_date"
+   ],
+   "required": [
+    "title",
+    "journal"
+   ],
+   "recommended": [
+    "year",
+    "volume"
+   ]
+  }
+ }
+}
