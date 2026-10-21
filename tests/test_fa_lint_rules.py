@@ -109,3 +109,20 @@ def test_warning_for_arabic_letters_inside_links():
 def test_rule_ids_unique():
     ids = [r.id for r in RULES]
     assert len(ids) == len(set(ids))
+
+
+# Regressions found in the real-world rehearsal (bench/realworld.py + bench/label.py)
+@pytest.mark.parametrize("text", [
+    "مبلغ ۷۰۰.۰۰۰ یورو",                                         # dot as thousands separator
+    "در نسخه ۵.۴ آمد",                                            # version number
+    "و... . بعد",                                                  # ellipsis then full stop
+    "ه.ق", "ی.س.باخ",                                              # abbreviation, initials
+    "''Nordic Journal of African Studies'' 15(3): 296–313.",       # English bibliography line
+    "«Oliver! (1968) - IMDb»",                                     # English title in prose
+])
+def test_realworld_regressions_unchanged(text):
+    assert lint(text).fixed == text
+
+
+def test_thousands_dot_is_a_warning():
+    assert any(w["rule"] == "FW09" for w in lint("مبلغ ۷۰۰.۰۰۰ یورو").warnings)

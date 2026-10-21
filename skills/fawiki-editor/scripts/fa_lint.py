@@ -108,7 +108,20 @@ def _latin_digits(m: re.Match) -> str:
     after = m.string[m.end():m.end() + 3]
     if re.search(r"[A-Za-z][\w.+-]*[ \t]*$", before) or re.match(r"[ \t]*[A-Za-z]", after):
         return tok  # "Windows 10", "10 GB": number belongs to a Latin phrase
+    if _latin_context(m.string, m.start(), m.end()):
+        return tok  # English bibliography or quotation inside a Persian article
     return tok.translate(_DIGITS)
+
+
+def _latin_context(s: str, start: int, end: int) -> bool:
+    """True when Latin letters outnumber Persian ones around a number on its own line."""
+    ls = s.rfind("\n", 0, start) + 1
+    le = s.find("\n", end)
+    le = len(s) if le == -1 else le
+    window = s[max(ls, start - 60):min(le, end + 40)]
+    latin = len(re.findall(r"[A-Za-z]", window))
+    persian = len(re.findall(f"[{L}]", window))
+    return latin > persian
 
 
 def _join(m: re.Match) -> str:
@@ -151,7 +164,10 @@ RULES: list[Rule] = [
     _r("FA04", "latin-digits", r"[^\s«»()\[\]،؛؟!\"'*:|]*[0-9][^\s«»()\[\]،؛؟!\"'*:|]*", _latin_digits,
        "Latin digits in Persian prose → ۰-۹ (skips tokens/phrases with Latin letters)"),
     _r("FA06", "persian-percent", "(?<=[۰-۹])[ \t]?%", "٪", "% after Persian digits → ٪"),
-    _r("FA07", "persian-decimal", r"(?<=[۰-۹])\.(?=[۰-۹])", "٫", "decimal point between Persian digits → ٫"),
+    _r("FA07", "persian-decimal",
+       r"(?<![۰-۹.])(?<!نسخه )(?<!نسخهٔ )(?<!ویرایش )([۰-۹]+)\.([۰-۹]+)(?![۰-۹]|\.[۰-۹])",
+       lambda m: m.group(0) if len(m.group(2)) == 3 else m.group(1) + "٫" + m.group(2),
+       "decimal point between Persian digits → ٫ (not 700.000-style groups or version numbers)"),
     _r("FA08", "persian-thousands", "(?<=[۰-۹]),(?=[۰-۹]{3}(?![۰-۹]))", "٬",
        "thousands comma between Persian digits → ٬"),
     _r("FA05", "kashida", f"(?<={FA})ـ+(?={FA})", "", "remove tatweel ـ between letters"),
@@ -181,10 +197,12 @@ RULES: list[Rule] = [
     _r("FA32", "persian-question", rf"(?<={FA})[ \t]*\?", "؟", "Latin ? after a Persian word → ؟"),
     _r("FA33", "curly-quotes", rf"[“„]([^”“\n{PH_CLASS}]*{FA}[^”“\n{PH_CLASS}]*)”", _curly, "“…” around Persian → «…»"),
     # --- spacing -----------------------------------------------------------
-    _r("FA40", "space-before-punct", r"(?<=\S)[ \t]+(?=[.،؛؟!:)»](?:\s|$|[^.\d]))", "",
+    _r("FA40", "space-before-punct", r"(?<=\S)(?<!\.)[ \t]+(?=[.،؛؟!:)»](?:\s|$|[^.\d]))|(?<=\.)[ \t]+(?=[،؛؟!:)»](?:\s|$|[^.\d]))", "",
        "no space before . ، ؛ ؟ ! : ) »"),
     _r("FA41", "space-after-open", r"(?<=[«(])[ \t]+", "", "no space after « ("),
-    _r("FA42", "space-after-punct", rf"(?<={FA})([،؛؟.:])(?={FA})", r"\1 ", "one space after punctuation between Persian words"),
+    _r("FA42", "space-after-punct",
+       rf"(?<={FA})([،؛؟])(?={FA})|(?<={FA}{FA})([.:])(?={FA}{FA})", lambda m: (m.group(1) or m.group(2)) + " ",
+       "one space after punctuation between Persian words (not in abbreviations like ه.ق)"),
     _r("FA43", "double-space", r"(?<=\S)[ \t]{2,}(?=[^\s=])", " ", "collapse runs of spaces (not before =)"),
     _r("FA44", "trailing-space", r"[ \t]+$", "", "strip trailing whitespace"),
     # --- dictionary --------------------------------------------------------
@@ -203,6 +221,8 @@ _FW = [
     ("FW05", re.compile(rf"(?<={FA})ه[ \t]+ی{EOW}"), None, "«{0}»: ezafe after silent ه is written هٔ (check meaning)"),
     ("FW06", re.compile(rf"{NOT_LETTER_BEFORE}(?:حضرت|شادروان|مرحوم|زنده{ZWNJ}یاد|زنده یاد|علیه{ZWNJ}السلام){NOT_LETTER_AFTER}|\((?:ع|ره|ص|س)\)"),
      None, "honorific «{0}»: avoid per NPOV (fa.wiki اشتباه‌یاب epithet list)"),
+    ("FW09", re.compile(r"(?<![۰-۹.])[۰-۹]+(?:\.[۰-۹]{3})+(?![۰-۹])"), None,
+     "«{0}»: dot used as a thousands separator? fa.wiki writes ۷۰۰٬۰۰۰ (decimal is ٫)"),
     ("FW07", re.compile(rf"[۰-۹]{{4}}{ZWNJ}?ها{EOW}"), None, "decade «{0}»: write «دههٔ ۱۹۸۰»"),
     ("FW08", re.compile(rf"{NOT_LETTER_BEFORE}(?:جولای|آگوست|آپریل|جون|فبروری){NOT_LETTER_AFTER}"), None,
      "month «{0}»: use French forms (ژوئیه، اوت، آوریل، ژوئن، فوریه)"),

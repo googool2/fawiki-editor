@@ -8,7 +8,7 @@ fawiki-editor 0.2.0 · Python 3.13.16 · Linux · mwparserfromhell: yes
 |---|---|
 | Planted errors fixed | 16/16 |
 | Traps left untouched | 36/36 |
-| Lint time, ~0.5 MB | 0.65 s |
+| Lint time, ~0.5 MB | 0.76 s |
 
 | Check | Result | Detail |
 |---|---|---|
@@ -39,4 +39,4 @@ fawiki-editor 0.2.0 · Python 3.13.16 · Linux · mwparserfromhell: yes
 | 3 articles: all traps untouched | pass | 36/36 |
 | broken draft: planted structural errors found | pass | want ['WC01', 'WC03', 'WC05', 'WC06'] got ['WC01', 'WC03', 'WC05', 'WC06'] |
 | cite --offline: no network | pass |  |
-| speed: ~0.5 MB lints in under 20 s | pass | 0.13 MB in 0.65 s |
+| speed: ~0.5 MB lints in under 20 s | pass | 0.13 MB in 0.76 s |

@@ -24,6 +24,20 @@ Semantic versioning, read from the point of view of someone's draft:
 - Synthetic benchmark (`bench/bench.py`) with planted errors and traps; CI on Linux, macOS
   and Windows with Python 3.10 and 3.13; `docs/design.md`.
 
+### Fixed (from the real-world rehearsal)
+Ran every rule on 88 real fa.wiki articles (48 wikitext, 40 plain text) and labeled all 759
+automatic changes by hand: 738 correct, 9 debatable, **12 wrong (1.6%)**. Root causes, fixed:
+- **FA04** turned Latin digits into Persian ones inside English bibliographies and titles
+  (`''Journal'' 15(3): 296–313`). It now skips numbers where Latin letters dominate the line.
+- **FA07** read «۷۰۰.۰۰۰ یورو» (dot as thousands separator) as a decimal. Three-digit groups
+  are now left alone and reported as the new warning **FW09**; version numbers after
+  «نسخه/ویرایش» are skipped too.
+- **FA40** glued a full stop onto an ellipsis («و... .» → «و....»).
+- **FA42** split the abbreviation «ه.ق» and initials («ی.س.باخ»); it now needs two letters on
+  each side of «.» or «:».
+After the fixes, the same corpus gives 742 changes: 738 correct, 4 debatable, **0 wrong**, and
+0 mechanical failures (protected regions intact, undo byte-identical for every file).
+
 ### Changed
 - Standard plugin layout: the skill now lives in `skills/fawiki-editor/`.
 - SKILL.md trimmed to about 1.5k tokens; task detail moved to `references/workflows.md`.
