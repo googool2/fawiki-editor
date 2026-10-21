@@ -1,5 +1,5 @@
 {
- "_source": "Built from research notes (search excerpts of each template page; see references/infoboxes.md). confidence: V = names seen in an excerpt of the template page, LOW = summary only. Top-10 by usage is [UNVERIFIED]. Always compare with the live template documentation before publishing.",
+ "_source": "Every parameter name here was checked against the live template (TemplateData, template source) on 2026-10-21 with bench/live_check.py: confidence LIVE. Notes in references/infoboxes.md. Top-10 by usage is [UNVERIFIED].",
  "infoboxes": {
   "biography": {
    "template": "جعبه اطلاعات زندگی‌نامه",
@@ -9,7 +9,7 @@
     "شخص",
     "زندگی‌نامه"
    ],
-   "confidence": "LOW",
+   "confidence": "LIVE",
    "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_زندگی‌نامه",
    "params": {
     "name": "نام",
@@ -48,7 +48,7 @@
     "شهر",
     "منطقه مسکونی"
    ],
-   "confidence": "LOW",
+   "confidence": "LIVE",
    "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_منطقه_مسکونی",
    "params": {
     "name": "نام",
@@ -76,7 +76,7 @@
     "روستا",
     "روستای ایران"
    ],
-   "confidence": "LOW",
+   "confidence": "LIVE",
    "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_روستای_ایران",
    "params": {
     "name": "نام",
@@ -101,7 +101,7 @@
     "company",
     "شرکت"
    ],
-   "confidence": "V",
+   "confidence": "LIVE",
    "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_شرکت",
    "params": {
     "name": "نام",
@@ -138,7 +138,7 @@
     "movie",
     "فیلم"
    ],
-   "confidence": "V",
+   "confidence": "LIVE",
    "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_فیلم",
    "params": {
     "title": "عنوان",
@@ -154,7 +154,7 @@
     "distributor": "توزیع‌کننده",
     "country": "کشور",
     "language": "زبان",
-    "runtime": "مدت زمان"
+    "runtime": "مدت"
    },
    "core": [
     "عنوان",
@@ -162,7 +162,7 @@
     "کشور",
     "زبان"
    ],
-   "note": "Title param is «عنوان», not «نام». «مدت زمان» is [LOW]. Lists use {{فهرست ساده|…}}."
+   "note": "Title param is «عنوان», not «نام». Runtime is «مدت». Lists use {{فهرست ساده|…}}."
   },
   "book": {
    "template": "جعبه اطلاعات کتاب",
@@ -170,7 +170,7 @@
     "book",
     "کتاب"
    ],
-   "confidence": "V",
+   "confidence": "LIVE",
    "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_کتاب",
    "params": {
     "name": "نام کتاب",
@@ -200,7 +200,7 @@
     "university",
     "دانشگاه"
    ],
-   "confidence": "V",
+   "confidence": "LIVE",
    "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_دانشگاه",
    "params": {
     "name": "نام",
@@ -232,26 +232,26 @@
     "country",
     "کشور"
    ],
-   "confidence": "LOW",
+   "confidence": "LIVE",
    "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_کشور",
    "params": {
     "native_name": "نام بومی",
     "official_name": "نام رسمی",
-    "common_name": "نام رایج",
+    "common_name": "نام عادی",
     "flag": "تصویر پرچم",
-    "coat_of_arms": "تصویر نشان",
+    "coat_of_arms": "تصویر نشان ملی",
     "capital": "پایتخت",
     "largest_city": "بزرگ‌ترین شهر",
-    "official_languages": "زبان‌های رسمی",
+    "official_languages": "زبان(های) رسمی",
     "government_type": "نوع حکومت",
     "currency": "واحد پول",
     "currency_code": "کد واحد پول"
    },
    "core": [
-    "نام رایج",
+    "نام عادی",
     "پایتخت"
    ],
-   "note": "Search summary was partial; verify every name. The page also documents English {{Infobox country}} params."
+   "note": "The template also accepts the English {{Infobox country}} parameters."
   },
   "album": {
    "template": "جعبه اطلاعات آلبوم",
@@ -259,7 +259,7 @@
     "album",
     "آلبوم"
    ],
-   "confidence": "V",
+   "confidence": "LIVE",
    "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_آلبوم",
    "params": {
     "name": "نام",
@@ -294,22 +294,21 @@
     "هنرمند موسیقی",
     "خواننده"
    ],
-   "confidence": "V",
+   "confidence": "LIVE",
    "source": "https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_هنرمند_موسیقی",
    "params": {
     "name": "نام",
     "image": "تصویر",
-    "background": "پیش‌زمینه",
+    "background": "پس‌زمینه",
     "genre": "سبک",
     "instrument": "ساز",
-    "notable_instruments": "سازهای برجسته",
     "years_active": "سال‌های فعالیت",
     "label": "ناشر"
    },
    "core": [
-    "پیش‌زمینه"
+    "پس‌زمینه"
    ],
-   "note": "«پیش‌زمینه» values: خواننده_تک / گروه (sets colour). نام/تصویر are [LOW]. Record label is «ناشر»."
+   "note": "The parameter is «پس‌زمینه», not «پیش‌زمینه»; its values (خواننده_تک / گروه) are [LOW]. Record label is «ناشر»."
   }
  }
 }

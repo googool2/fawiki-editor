@@ -76,11 +76,13 @@ ARTICLES = [
         "نسخهٔ <code>v2.0 ي</code> در سال 2020 منتشر شد ؛ ISBN 978-3-16-148410-0 هم دارد.\n"
         "<syntaxhighlight lang=\"python\">a = 1 ; b = 2 ?</syntaxhighlight> ~~~~ __NOTOC__\n"
         "لباس تر شد و جام می ناب نوشید. حضرت فلانی گفت \"سلام\".\n"
+        "نام محلی (به اویغوری: شەرقىي كوچا باشقارمىسى) است.\n"
         "[https://example.com/a,b برچسب ي 12]\n[[رده:نرم‌افزار]]\n"),
      [("سال 2020", "سال ۲۰۲۰"), ("شد ؛", "شد؛")],
      ["Windows 10", "iPhone 15", "COVID-19", "F-16", "He said: \"Hello, world? Yes; fine.\"",
       "<code>v2.0 ي</code>", "ISBN 978-3-16-148410-0", "<syntaxhighlight lang=\"python\">a = 1 ; b = 2 ?</syntaxhighlight>",
-      "~~~~", "__NOTOC__", "لباس تر شد", "جام می ناب", "حضرت فلانی", "\"سلام\"", "[https://example.com/a,b برچسب ي 12]"]),
+      "~~~~", "__NOTOC__", "لباس تر شد", "جام می ناب", "حضرت فلانی", "\"سلام\"", "[https://example.com/a,b برچسب ي 12]",
+      "شەرقىي كوچا باشقارمىسى"]),
 ]
 # Planted structural errors (wikitext_check must report these codes as errors)
 BROKEN = ("کوه نمونه بلند است.<ref>بدون پایان\n\n== منابع ==\n{{پانویس}}\n[[پیوند ناقص\n", {"WC01", "WC03", "WC05", "WC06"})

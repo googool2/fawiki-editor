@@ -119,6 +119,7 @@ def test_rule_ids_unique():
     "ه.ق", "ی.س.باخ",                                              # abbreviation, initials
     "''Nordic Journal of African Studies'' 15(3): 296–313.",       # English bibliography line
     "«Oliver! (1968) - IMDb»",                                     # English title in prose
+    "آ.ای.اچ. گوکوپ", "شرکت دی.آی.سی.ای",                        # chains of initials / acronyms
 ])
 def test_realworld_regressions_unchanged(text):
     assert lint(text).fixed == text
@@ -126,3 +127,7 @@ def test_realworld_regressions_unchanged(text):
 
 def test_thousands_dot_is_a_warning():
     assert any(w["rule"] == "FW09" for w in lint("مبلغ ۷۰۰.۰۰۰ یورو").warnings)
+
+
+def test_two_initials_still_get_a_space():
+    assert lint("اثر اچ.جی. ولز").fixed == "اثر اچ. جی. ولز"

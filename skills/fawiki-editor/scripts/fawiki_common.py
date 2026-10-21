@@ -60,6 +60,13 @@ _CELL_ATTR = re.compile(
 _LANG_BLOCK = re.compile(
     r"\{\{\s*(?:آغاز\s+)?(عربی|اردو|کردی|پشتو)\s*\}\}.*?\{\{\s*پایان\s+\1\s*\}\}", re.DOTALL
 )
+# Letters that Persian never uses but Uyghur, Kurdish, Urdu, Pashto, Sindhi and Kazakh do.
+# A run of words containing them is another language: folding its ي/ك/ى would corrupt it.
+_FOREIGN_LETTERS = "ٹڈڑںےۓھێڵڕۆەېۇۈۋڭڤٶٷٵٸټډړږښګڼۍڄٻڀٺٽٿڃڇڊڌڍڎڏڙڦڱڳڻۅۉۊ"
+_AR_LETTER = "\u0620-\u065F\u066E-\u06D3\u06D5\u06EE\u06EF\u06FA-\u06FC\u06FF\u0750-\u077F"
+_AR_WORD = re.compile(f"[{_AR_LETTER}][{_AR_LETTER}\u200c\u200d]*")
+_FOREIGN = re.compile(f"[{_FOREIGN_LETTERS}]")
+_FOLDABLE = re.compile(f"[يكى{_FOREIGN_LETTERS}]")
 _CANDIDATE = re.compile(r"<|\{\{|\[|(?:https?|ftp|irc|mailto|news):|//|__|ISBN|PMID|RFC|~~~|\n|\|\||!!")
 _CANDIDATE_MD = re.compile(_CANDIDATE.pattern + r"|`|\]\(")
 
@@ -89,6 +96,51 @@ def _para_end(text: str, i: int) -> int:
 _MD_FENCE = re.compile(r"(`{3,}|~{3,})[^\n]*\n.*?(?:\n\1[ \t]*(?=\n|$)|\Z)", re.DOTALL)
 _MD_CODE = re.compile(r"`[^`\n]+`")
 _MD_LINK_TARGET = re.compile(r"\]\([^)\s]+\)")
+
+
+def _foreign_script_spans(text: str) -> list[tuple[int, int]]:
+    """Runs of Arabic-script words in another language (see _FOREIGN_LETTERS).
+
+    A word with a foreign letter starts a run; the run grows over neighbours joined by
+    plain spaces that contain ي/ك/ى or foreign letters («شەرقىي كوچا باشقارمىسى»)."""
+    if not _FOREIGN.search(text):
+        return []
+    words = [(m.start(), m.end()) for m in _AR_WORD.finditer(text)]
+
+    def joined(a: int, b: int) -> bool:
+        gap = text[a:b]
+        return bool(gap) and all(c in " \u00a0\u200e\u200f" for c in gap)
+
+    runs: list[tuple[int, int]] = []
+    for k, (s, e) in enumerate(words):
+        if not _FOREIGN.search(text, s, e):
+            continue
+        lo = hi = k
+        while lo > 0 and joined(words[lo - 1][1], words[lo][0]) and _FOLDABLE.search(text, *words[lo - 1]):
+            lo -= 1
+        while hi + 1 < len(words) and joined(words[hi][1], words[hi + 1][0]) and _FOLDABLE.search(text, *words[hi + 1]):
+            hi += 1
+        start, end = words[lo][0], words[hi][1]
+        if runs and start <= runs[-1][1]:
+            runs[-1] = (runs[-1][0], max(end, runs[-1][1]))
+        else:
+            runs.append((start, end))
+    return runs
+
+
+def _add_foreign_script(text: str, spans: list[tuple[int, int, str]]) -> list[tuple[int, int, str]]:
+    extra = []
+    for fs, fe in _foreign_script_spans(text):
+        pos = fs
+        for s, e, _k in spans:  # keep only the parts outside existing spans
+            if e <= pos or s >= fe:
+                continue
+            if s > pos:
+                extra.append((pos, s, "foreign-script"))
+            pos = max(pos, e)
+        if pos < fe:
+            extra.append((pos, fe, "foreign-script"))
+    return sorted(spans + extra) if extra else spans
 
 
 def find_protected_spans(text: str, markdown: bool = False) -> list[tuple[int, int, str]]:
@@ -209,7 +261,7 @@ def find_protected_spans(text: str, markdown: bool = False) -> list[tuple[int, i
                 break
         else:
             i += 1
-    return spans
+    return _add_foreign_script(text, spans)
 
 
 class Masked:

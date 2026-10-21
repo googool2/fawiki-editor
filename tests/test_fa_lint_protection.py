@@ -99,3 +99,31 @@ def test_arabic_blocks_are_not_folded(block):
     out = lint(text).fixed
     assert block in out
     assert out.startswith("متن ی ") and out.endswith(" متن ک")
+
+
+# Regression from the live rehearsal (article «قومول», 2026-10): Uyghur place names were folded.
+@pytest.mark.parametrize("foreign", [
+    "شەرقىي كوچا باشقارمىسى",      # Uyghur: the run includes «كوچا», which has no Uyghur-only letter
+    "يېڭى شەھىرى",                   # Uyghur
+    "ٹیلیویژن ميں",                  # Urdu
+    "کوردستانێ كوردی",               # Kurdish (Sorani)
+    "ښځه يې",                        # Pashto
+])
+def test_other_arabic_script_languages_are_not_folded(foreign):
+    text = "شهر ايران (به زبان محلی: " + foreign + ") و كتاب"
+    out = lint(text).fixed
+    assert foreign in out
+    assert out.startswith("شهر ایران") and out.endswith("و کتاب")
+
+
+def test_foreign_run_stops_at_plain_persian_word():
+    out = lint("يېڭى شەھىرى و كتاب فارسي").fixed
+    assert out == "يېڭى شەھىرى و کتاب فارسی"
+
+
+def test_foreign_spans_never_overlap_other_spans():
+    text = "شەرقىي [[كوچا]] {{ب|ي}} شەھىرى <ref>ي</ref>"
+    spans = find_protected_spans(text)
+    for (s1, e1, _), (s2, e2, _) in zip(spans, spans[1:]):
+        assert e1 <= s2
+    assert lint(text).fixed == text

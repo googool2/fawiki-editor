@@ -54,7 +54,7 @@ def test_empty_core_params_are_left_blank_not_invented():
 def test_every_schema_is_well_formed():
     for key, box in ib.BOXES.items():
         assert box["template"].startswith(("جعبه اطلاعات", "Infobox"))
-        assert box["confidence"] in ("V", "LOW")
+        assert box["confidence"] in ("LIVE", "V", "LOW")
         assert set(box["core"]) <= set(box["params"].values()), key
         assert box["source"].startswith("https://fa.wikipedia.org/wiki/")
 

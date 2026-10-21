@@ -94,7 +94,7 @@ def classify(param: str, info: dict, cs1_text: str = "") -> str:
     known = set(info["params"]) | set(info["aliases"]) | set(info.get("source_params", []))
     if param in known:
         return "confirmed"
-    if cs1_text and re.search(r"['\"]" + re.escape(param) + r"['\"]", cs1_text):
+    if cs1_text and re.search(r"['\"]" + re.escape(param) + r"#?['\"]", cs1_text):  # 'نویسنده#' = numbered alias
         return "confirmed (CS1 module)"
     return "not found"
 
@@ -119,11 +119,13 @@ def cmd_templates(out: Path) -> int:
     for key, spec in citations.items():
         info = template_info(spec["template"])
         rows = {}
-        for _k, fa in spec["params"].items():
+        for en, fa in spec["params"].items():
             st = classify(fa, info, cs1_text) if info["exists"] else "template missing"
-            rows[fa] = {"status": st}
+            evidence = list(dict.fromkeys(ln.strip()[:220] for ln in cs1_text.splitlines()
+                                          if re.search(r"['\"]" + re.escape(en.replace("_", "-")) + r"#?['\"]", ln)))[:3]
+            rows[fa] = {"status": st, "module_lines": evidence if not st.startswith("confirmed") else []}
         report["citations"][key] = {"template": spec["template"], "exists": info["exists"], "params": rows,
-                                    "all_params": all_params(info)}
+                                    "all_params": all_params(info), "uses_module": info.get("uses_module")}
     for name in known["known_templates"]:
         if name.isascii():
             continue
@@ -152,13 +154,14 @@ def cmd_templates(out: Path) -> int:
         for key, r in report[section].items():
             rows = r["params"]
             ok = sum(v["status"].startswith("confirmed") for v in rows.values())
-            md.append(f"### {r['template']}: {ok}/{len(rows)} confirmed"
+            md.append(f"### {r['template']}: {ok}/{len(rows)} confirmed" + (" (calls a module)" if r.get("uses_module") else "")
                       + (f" (TemplateData: {'yes' if r.get('info', {}).get('templatedata') else 'no'})" if section == "infoboxes" else ""))
             missing = False
             for p, v in rows.items():
                 if not v["status"].startswith("confirmed"):
                     missing = True
                     md.append(f"- `{p}`: {v['status']}" + (f"; close: {', '.join(v.get('suggest', []))}" if v.get("suggest") else ""))
+                    md += [f"  - CS1 module: `{ln}`" for ln in v.get("module_lines", [])]
             if missing:
                 md.append("- all parameters on fa.wiki: " + " · ".join(r["all_params"][:150]))
     md.append("## known_templates not existing")

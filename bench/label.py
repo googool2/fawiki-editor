@@ -24,10 +24,22 @@ ALWAYS_CORRECT = {  # reviewed: every instance in the corpus was a plain improve
 }
 
 
+FOREIGN = "ٹڈڑںےۓھێڵڕۆەېۇۈۋڭڤٶٷٵٸټډړږښګڼۍڄٻڀٺٽٿڃڇڊڌڍڎڏڙڦڱڳڻۅۉۊ"  # Uyghur, Kurdish, Urdu, Pashto…
+
+
+def visible(text: str) -> str:
+    """Roughly what a reader sees: drop templates, link targets, tags and table attributes."""
+    for _ in range(3):
+        text = re.sub(r"\{\{[^{}]*\}\}", " ", text)
+    text = re.sub(r"\[\[[^\]|]*\|", "[[", text)
+    text = re.sub(r"<[^<>]*>", " ", text)
+    return re.sub(r"[\w-]+\s*=\s*(\"[^\"]*\"|\S+)", " ", text)
+
+
 def latin_dominant(line: str, frag: str) -> bool:
     i = line.find(frag)
     window = line[max(0, i - 60): i + len(frag) + 40] if i >= 0 else line
-    window = re.sub(r"\[?https?://\S+", " ", window)
+    window = visible(re.sub(r"\[?https?://\S+", " ", window))
     latin = len(re.findall(r"[A-Za-z]", window))
     persian = len(re.findall(f"[{FA}]", window))
     return latin > persian
@@ -35,6 +47,11 @@ def latin_dominant(line: str, frag: str) -> bool:
 
 def label(c: dict, line: str) -> tuple[str, str]:
     rule, before, after = c["rule"], c["before"], c["after"]
+    if rule in ("FA01", "FA02"):
+        i = line.find(before)
+        near = line[max(0, i - 40): i + len(before) + 40] if i >= 0 else line
+        if any(ch in FOREIGN for ch in near):
+            return "wrong", "folded a letter of another Arabic-script language (Uyghur, Kurdish, Urdu…)"
     if rule in ALWAYS_CORRECT:
         return "correct", ""
     if rule == "FA04":
@@ -42,7 +59,8 @@ def label(c: dict, line: str) -> tuple[str, str]:
         frag = before.strip(" '()[].:") if not digits else before[digits.start():digits.end()]
         if latin_dominant(line, frag):
             return "wrong", "Latin digits inside an English phrase or bibliography"
-        if "]]" in before and "[[" not in line.split(frag)[0][-40:]:
+        rest = before[digits.end():] if digits else before
+        if "]]" in rest and "[[" not in rest.split("]]")[0] and "[[" not in line.split(frag)[0][-40:]:
             return "debatable", "text of a broken link"
         return "correct", ""
     if rule == "FA07":
@@ -67,6 +85,9 @@ def label(c: dict, line: str) -> tuple[str, str]:
         return "correct", ""
     if rule == "FA42":
         m = re.search(f"([{FA}]+)([.:])([{FA}]+)", before)
+        chain = re.search(f"(?:[{FA}]{{1,3}}\\.){{2,}}[{FA}]{{1,3}}|(?:[{FA}]{{1,3}}\\.){{3,}}", before)
+        if chain and m and m.group(2) == ".":
+            return "debatable", "space inside a chain of initials or an acronym"
         if m and m.group(2) == "." and (len(m.group(1).split()[-1]) == 1 or len(m.group(3)) == 1):
             return ("wrong", "split an abbreviation") if re.fullmatch(r"[هق]", m.group(1)[-1:] + "") and len(m.group(3)) == 1 \
                 else ("debatable", "space between initials")
