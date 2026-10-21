@@ -335,88 +335,30 @@ The gadget was likely seeded by persiantools: AA reproduces PT's functions verba
 ## 4. Consolidated [UNVERIFIED] / [LOW] list (needs live verification)
 
 **[UNVERIFIED]: no source found**
-- [ ] **Orthography and punctuation**
-  - Copula ZWNJ rules ([نیم‌فاصله](https://fa.wikipedia.org/wiki/ویکی‌پدیا:نیم‌فاصله) § صورت‌های متصل فعل بودن)
-  - An explicit rule to use ، ؛ ؟ instead of , ; ?
-- [ ] **Dates and numbers**
-  - The full Gregorian month list
-  - Number–unit spacing, percent and currency rules
-- [ ] **Transliteration, lead and words to watch**
-  - An English → Persian letter table
-  - The birth/death parenthesis format
-  - A fuller peacock-word list
-- [ ] **Maintenance and citation templates**
-  - Whether {{منبع}} is a separate template; {{بدون منبع}} parameters
-  - `مترجم` and `صفحه‌ها`; یادکرد خبر `کار`
-  - Whether date validators accept Persian-digit or Solar dates (`۱۵ فروردین ۱۴۰۲`)
-- [ ] **Infoboxes**
-  - Usage ranking (`Special:MostTranscludedPages`)
-  - منطقه مسکونی subdivision numbering and postal codes; روستای ایران statistical-code and census-year parameters
-  - Whether «جعبه اطلاعات شخص» exists as a redirect; a Persian football wrapper
-- [ ] **Deletion**
-  - ع۱۳, ع۱۴, م۴–م۶, م۸
-  - Content of the Iran/Afghanistan biographies RfC
-- [ ] **Translation and AI**
-  - Whether ویکی‌پدیا:ترجمه exists; any MT policy or cap
-  - The status banner of [مدل‌های زبانی بزرگ](https://fa.wikipedia.org/wiki/ویکی‌پدیا:مدل‌های_زبانی_بزرگ) (policy / guideline / «انشا»)
-  - An AI maintenance template and an adoption RfC
+- [ ] **Orthography and punctuation:** copula ZWNJ rules ([نیم‌فاصله](https://fa.wikipedia.org/wiki/ویکی‌پدیا:نیم‌فاصله) § صورت‌های متصل فعل بودن); an explicit rule to use ، ؛ ؟ instead of , ; ?
+- [ ] **Dates and numbers:** the full Gregorian month list; number–unit spacing, percent and currency rules
+- [ ] **Transliteration, lead and words to watch:** an English → Persian letter table; the birth/death parenthesis format; a fuller peacock-word list
+- [ ] **Templates:** whether {{منبع}} is a separate template; {{بدون منبع}} parameters; `مترجم`, `صفحه‌ها`, یادکرد خبر `کار`; whether date validators accept Persian-digit or Solar dates (`۱۵ فروردین ۱۴۰۲`)
+- [ ] **Infoboxes:** usage ranking (`Special:MostTranscludedPages`); منطقه مسکونی subdivision numbering and postal codes; روستای ایران statistical-code and census-year parameters; whether «جعبه اطلاعات شخص» is a redirect; a Persian football wrapper
+- [ ] **Deletion:** ع۱۳, ع۱۴, م۴–م۶, م۸; content of the Iran/Afghanistan biographies RfC
+- [ ] **Translation and AI:** whether ویکی‌پدیا:ترجمه exists; any MT policy or cap; status banner of [مدل‌های زبانی بزرگ](https://fa.wikipedia.org/wiki/ویکی‌پدیا:مدل‌های_زبانی_بزرگ) (policy / guideline / «انشا»); an AI maintenance template and an adoption RfC
 
 **[LOW]: summary only, quote needed**
-- [ ] **شیوه‌نامه**
-  - Formal register; Arabic-text templates; hamza seat rule
-  - Punctuation spacing; § پیوند (most specific; external links)
-  - Banned title characters; image placement
-- [ ] **دستور خط and نیم‌فاصله**
-  - مسئله / مسئول; inference for نمی‌; بهنام / بهروز
-  - Read نیم‌فاصله § ها in full (joined vs ZWNJ)
-- [ ] **Other style pages**
-  - نشانه‌های نگارشی: nested parentheses
-  - املای برخی واژه‌ها: sources
-  - شیوه عبارات عربی: the اتاق table
-  - Solar month forms
-  - کوته‌نوشت: ه‍.ق / ه‍.ش, «م», «ق.م»
-- [ ] **Titles**: outcomes of the هٔ RfCs (2014 and title-clause) and the اعراب RfC
-- [ ] **Naming and transliteration**
-  - قواعد نام‌گذاری subpages (فیلم‌ها, اسامی جغرافیایی, اشخاص)
-  - فارسی‌سازی, نویسه‌گردانی, نگارش نام‌های خارجی and per-language pages
-- [ ] **Links and lead**
-  - پیونددهی: link once, overlinking, dates; don't link the bolded title
-  - بخش آغازین: bold, definition, summary, length table
-  - زندگی‌نامه‌ها: lead; religion in the infobox
-- [ ] **Layout**
-  - صفحه‌آرایی: post-navbox order; منابع / مطالعهٔ بیشتر / پیوند به بیرون; heading levels
-  - رده‌بندی: category vs stub order
-- [ ] **Notability**
-  - سرشناسی: GNG and secondary sources
-  - Subject pages: افراد, سازمان‌ها, کتاب‌ها, فیلم‌ها, موسیقی, ورزش‌ها, دانشگاهیان, جغرافیا, رویدادها
-- [ ] **Sourcing and words to watch**
-  - تأییدپذیری: self-published sources
-  - منابع معتبر: the expert exception; Wikipedia not a source
-  - تحقیق دست‌اول ممنوع: the whole page
-  - Words to watch: the whole page
-- [ ] **Maintenance templates**
-  - {{مدرک}}: the `تاریخ` format
-  - {{یک منبع}}; {{ابهام‌زدایی}} placement
-- [ ] **Citations**: [پودمان:Citation/CS1/fa/Configuration](https://fa.wikipedia.org/wiki/پودمان:Citation/CS1/fa/Configuration)
-  - English aliases inside یادکرد
-  - `تاریخ بازدید`, `نقل قول`, `قالب`, `ترجمه عنوان`, `شهر`, `دوره`
-  - `خبرگزاری`, `تاریخ انتشار`
-  - {{پانویس\|گروه=}}
-- [ ] **Infoboxes**
-  - زندگی‌نامه misc parameters and the {{جعبه زندگینامه}} redirect
-  - فیلم runtime / budget; کتاب page count; دانشگاه website; کشور Persian parameters
-  - Football biography; سیاست‌مدار; officeholder; هنرپیشه
-- [ ] **Deletion**
-  - Prefix list; ع۴, ع۶, ع۸–ع۱۱; م۱, م۹–م۱۱; ت / پ / ر / ک
-  - All-criteria rules
-  - ع۱۵: title, signs, adoption RfC; is «یادکرد ساختگی» part of it?
-  - AfD 7-day minimum; patrol / draftify rules; {{نقض حق تکثیر}}
-- [ ] **Translation and AI**
-  - {{صفحه ترجمه‌شده}} revision parameters; optional talk template; cleanup templates
-  - Claims on [هوش مصنوعی](https://fa.wikipedia.org/wiki/ویکی‌پدیا:هوش_مصنوعی); whether «ساخت مقاله با مدل‌های زبانی بزرگ» exists on fa; the Perseus discussion
-- [ ] **Tools**
-  - Does the live gadget (`MediaWiki:Gadget-Extra-Editbuttons-persianwikitools.js`, `-persiantools.js`, `-dictionary.js`) still match the AA port?
-  - Are FCC's template aliases still current redirects?
+- [ ] **شیوه‌نامه:** formal register; Arabic-text templates; hamza seat rule; punctuation spacing; § پیوند (most specific; external links); banned title characters; image placement
+- [ ] **دستور خط and نیم‌فاصله:** مسئله / مسئول; inference for نمی‌; بهنام / بهروز; read نیم‌فاصله § ها in full (joined vs ZWNJ)
+- [ ] **Other style pages:** نشانه‌های نگارشی (nested parentheses); املای برخی واژه‌ها (sources); شیوه عبارات عربی (اتاق table); solar month forms; کوته‌نوشت (ه‍.ق / ه‍.ش, «م», «ق.م»)
+- [ ] **Titles:** outcomes of the هٔ RfCs (2014 and title-clause) and the اعراب RfC
+- [ ] **Naming and transliteration:** قواعد نام‌گذاری subpages (فیلم‌ها, اسامی جغرافیایی, اشخاص); فارسی‌سازی, نویسه‌گردانی, نگارش نام‌های خارجی and per-language pages
+- [ ] **Links and lead:** پیونددهی (link once, overlinking, dates); don't link the bolded title; بخش آغازین (bold, definition, summary, length table); زندگی‌نامه‌ها (lead; religion in infobox)
+- [ ] **Layout:** صفحه‌آرایی (post-navbox order; منابع / مطالعهٔ بیشتر / پیوند به بیرون; heading levels); رده‌بندی (category vs stub order)
+- [ ] **Notability:** سرشناسی (GNG, secondary sources); subject pages افراد, سازمان‌ها, کتاب‌ها, فیلم‌ها, موسیقی, ورزش‌ها, دانشگاهیان, جغرافیا, رویدادها
+- [ ] **Sourcing and words to watch:** تأییدپذیری (self-published sources); منابع معتبر (expert exception; Wikipedia not a source); تحقیق دست‌اول ممنوع (whole page); words-to-watch page (whole page)
+- [ ] **Maintenance templates:** {{مدرک}} `تاریخ` format; {{یک منبع}}; {{ابهام‌زدایی}} placement
+- [ ] **Citations** ([پودمان:Citation/CS1/fa/Configuration](https://fa.wikipedia.org/wiki/پودمان:Citation/CS1/fa/Configuration)): English aliases inside یادکرد; `تاریخ بازدید`, `نقل قول`, `قالب`, `ترجمه عنوان`, `شهر`, `دوره`, `خبرگزاری`, `تاریخ انتشار`; {{پانویس\|گروه=}}
+- [ ] **Infoboxes:** زندگی‌نامه misc parameters and {{جعبه زندگینامه}} redirect; فیلم runtime / budget; کتاب page count; دانشگاه website; کشور Persian parameters; football biography; سیاست‌مدار; officeholder; هنرپیشه
+- [ ] **Deletion:** prefix list; ع۴, ع۶, ع۸–ع۱۱; م۱, م۹–م۱۱; ت / پ / ر / ک; all-criteria rules; ع۱۵ title, signs, adoption RfC (is «یادکرد ساختگی» part of it?); AfD 7-day minimum; patrol / draftify rules; {{نقض حق تکثیر}}
+- [ ] **Translation and AI:** {{صفحه ترجمه‌شده}} revision parameters; optional talk template; cleanup templates; claims on [هوش مصنوعی](https://fa.wikipedia.org/wiki/ویکی‌پدیا:هوش_مصنوعی); whether «ساخت مقاله با مدل‌های زبانی بزرگ» exists on fa; the Perseus discussion
+- [ ] **Tools:** does the live gadget (`MediaWiki:Gadget-Extra-Editbuttons-persianwikitools.js`, `-persiantools.js`, `-dictionary.js`) still match the AA port? Are FCC's template aliases still current redirects?
 
 ## 5. Conflicts between sources
 
@@ -466,15 +408,4 @@ curl -s 'https://fa.wikipedia.org/w/index.php?title=ویکی‌پدیا:اشتب
 curl -s 'https://fa.wikipedia.org/w/index.php?title=MediaWiki:Gadget-Extra-Editbuttons-persianwikitools.js&action=raw'
 ```
 
-**Priority pages for step 1:**
-- شیوه‌نامه (§ عنوان, اعداد, نشانه‌گذاری, همزه)
-- دستور خط and نیم‌فاصله
-- تاریخ‌ها و اعداد and کوته‌نوشت
-- صفحه‌آرایی and بخش آغازین
-- قواعد نام‌گذاری
-- سرشناسی (+ subpages)
-- تأییدپذیری, زندگی‌نامه زندگان and دیدگاه بی‌طرف
-- معیارهای حذف سریع and حذف زمان‌دار
-- راهنما:ترجمه and الگو:صفحه ترجمه‌شده
-- مدل‌های زبانی بزرگ and هوش مصنوعی
-- شیوه ارجاع به منابع and راهنما:جعبه اطلاعات
+**Priority pages for step 1:** شیوه‌نامه (§ عنوان, اعداد, نشانه‌گذاری, همزه); دستور خط; نیم‌فاصله; تاریخ‌ها و اعداد; کوته‌نوشت; صفحه‌آرایی; بخش آغازین; قواعد نام‌گذاری; سرشناسی (+ subpages); تأییدپذیری; زندگی‌نامه زندگان; دیدگاه بی‌طرف; معیارهای حذف سریع; حذف زمان‌دار; راهنما:ترجمه; الگو:صفحه ترجمه‌شده; مدل‌های زبانی بزرگ; هوش مصنوعی; شیوه ارجاع به منابع; راهنما:جعبه اطلاعات.
