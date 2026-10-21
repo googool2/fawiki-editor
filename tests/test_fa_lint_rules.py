@@ -121,6 +121,7 @@ def test_rule_ids_unique():
     "«Oliver! (1968) - IMDb»",                                     # English title in prose
     "آ.ای.اچ. گوکوپ", "شرکت دی.آی.سی.ای",                        # chains of initials / acronyms
     "طبق ویکی‌پدیا:شیوه‌نامه و الگو:جعبه اطلاعات", "در بحث کاربر:نمونه",  # page names in prose
+    "* .us: دامنهٔ آمریکا", "# .ir",                                  # list item starting with a dot
 ])
 def test_realworld_regressions_unchanged(text):
     assert lint(text).fixed == text

@@ -15,6 +15,47 @@ Semantic versioning, read from the point of view of someone's draft:
 
 ## [Unreleased]
 
+### Fixed (from live runs on current fa.wiki articles)
+Four runs of `.github/workflows/live.yml` on 2026-10-21 (240 random current articles, every
+change read by hand). With the v0.2.0 rules, 109 of 668 changes on 120 articles were wrong, all
+in one article; after the fixes below, 0 of 475 on another 120. Counts: `bench/live-results.json`.
+- **FA01/FA02** changed ي/ك/ى inside Uyghur place names (109 changes in one article). The masker
+  now protects runs of Arabic-script words that contain letters Persian never uses (Uyghur,
+  Kurdish, Urdu, Pashto, Sindhi, Kazakh), including neighbouring words with ي/ك/ى joined by
+  spaces, parentheses or direction marks. New synthetic trap and regression tests.
+- **FA42** inserted spaces inside chains of initials and acronyms («آ.ای.اچ.» → «آ.ای. اچ.»,
+  «دی.آی.سی.ای»). Chains of three or more short segments are left alone; two initials
+  («اچ.جی.») still get a space. It also no longer puts a space after a namespace colon in plain
+  text («ویکی‌پدیا:شیوه‌نامه»), which linting the new review docs showed.
+- **FA40** removed the space in list items that start with a dot (`* .us` → `*.us`; renders the
+  same). It now skips `*` and `#`.
+
+### Fixed (template and parameter names, checked live)
+`bench/live_check.py templates` compares every name the skill emits with the live TemplateData,
+template source and invoked module.
+- Infoboxes: 117 of 123 parameter names confirmed. Fixed: film `مدت زمان` → `مدت`; country
+  `نام رایج` → `نام عادی`, `تصویر نشان` → `تصویر نشان ملی`, `زبان‌های رسمی` → `زبان(های) رسمی`;
+  musical artist `پیش‌زمینه` → `پس‌زمینه`, and `سازهای برجسته` removed (no such parameter). All
+  ten boxes are now confidence `LIVE`; `references/infoboxes.md` tags each checked name [LIVE].
+- `{{کنترل مرجعیت}}` and `{{تک}}` do not exist on fa.wiki. Authority control maps to
+  `{{داده‌های کتابخانه‌ای}}`; Short description to `{{توصیف کوتاه}}`; en `{{References}}` to
+  `{{بدون منبع}}` (its interlanguage link).
+- **Unresolved:** `{{یادکرد کتاب}}` `نویسنده`, `ترجمه` and `{{یادکرد ژورنال}}` `نویسنده`, `جلد`,
+  `ناشر` are missing from TemplateData, the template source and the invoked module, but
+  fa.wiki's citer tool emits them. Left unchanged and listed as a question for reviewers.
+
+### Added
+- `.github/workflows/live.yml`: monthly live check (template names, 60 random current articles,
+  a fixed regression list in `bench/live-titles.txt`). `bench/label.py --context`.
+- Review kit: `docs/review/REVIEWING.md` (every rule in Persian, how votes are used),
+  `docs/review/call-fa.md` (a draft call for reviewers; not posted), and an issue form.
+
+### Changed
+- `bench/label.py`: FA01/FA02 inside another language now count as wrong (they were labeled
+  correct), and the Latin-context test ignores templates, link targets and tags (it had called
+  5 correct digit fixes wrong). Labels on the 88-article corpus are unchanged: 12 wrong before
+  the v0.2.0 fixes, 0 after.
+
 ### Measured
 - Re-measured the writing task on the released v0.2.0 SKILL.md (3 headless runs, same harness,
   model, prompt and grader): 7 of 7 checks in every run, including a reasoned notability verdict

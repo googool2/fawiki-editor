@@ -220,8 +220,8 @@ RULES: list[Rule] = [
     _r("FA32", "persian-question", rf"(?<={FA})[ \t]*\?", "؟", "Latin ? after a Persian word → ؟"),
     _r("FA33", "curly-quotes", rf"[“„]([^”“\n{PH_CLASS}]*{FA}[^”“\n{PH_CLASS}]*)”", _curly, "“…” around Persian → «…»"),
     # --- spacing -----------------------------------------------------------
-    _r("FA40", "space-before-punct", r"(?<=\S)(?<!\.)[ \t]+(?=[.،؛؟!:)»](?:\s|$|[^.\d]))|(?<=\.)[ \t]+(?=[،؛؟!:)»](?:\s|$|[^.\d]))", "",
-       "no space before . ، ؛ ؟ ! : ) »"),
+    _r("FA40", "space-before-punct", r"(?<=\S)(?<![.*#])[ \t]+(?=[.،؛؟!:)»](?:\s|$|[^.\d]))|(?<=\.)[ \t]+(?=[،؛؟!:)»](?:\s|$|[^.\d]))", "",
+       "no space before . ، ؛ ؟ ! : ) » (not after a list marker: «* .us»)"),
     _r("FA41", "space-after-open", r"(?<=[«(])[ \t]+", "", "no space after « ("),
     _r("FA42", "space-after-punct",
        rf"(?<={FA})([،؛؟])(?={FA})|(?<={FA}{FA})([.:])(?={FA}{FA})", _space_after_punct,

@@ -5,7 +5,7 @@
   "mwparserfromhell": true,
   "planted_fixes": "16/16",
   "traps_untouched": "37/37",
-  "lint_seconds_0_5MB": 0.61,
+  "lint_seconds_0_5MB": 0.73,
   "passed": 28,
   "total": 28,
   "ok": true,
@@ -148,7 +148,7 @@
     {
       "check": "speed: ~0.5 MB lints in under 20 s",
       "pass": true,
-      "detail": "0.13 MB in 0.61 s"
+      "detail": "0.13 MB in 0.73 s"
     }
   ]
 }

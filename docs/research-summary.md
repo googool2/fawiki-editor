@@ -256,6 +256,18 @@ Research date: 2026-10-21. This is an **index of rules with sources**, not a res
 | بازیگر: `تاریخ تولد`, `محل تولد`, `تاریخ مرگ`, `محل مرگ` (unlike زندگی‌نامه), `زمینه فعالیت`, `جوایز`. Its full form and the هنرپیشه redirect are [LOW]. | [الگو:جعبه اطلاعات بازیگر](https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_بازیگر) | [V] |
 | سمت رسمی (describes the office): `پیشین`, `جانشین`, `مدت تصدی`, `نخستین متصدی`. {{جعبه اطلاعات سیاست‌مدار}} and {{Infobox officeholder}} are [LOW]. | [الگو:جعبه اطلاعات سمت رسمی](https://fa.wikipedia.org/wiki/الگو:جعبه_اطلاعات_سمت_رسمی) | [V] |
 
+### 3.13a Live check of template and parameter names (2026-10-21)
+`bench/live_check.py templates`, run by `.github/workflows/live.yml` on GitHub's runners (wikipedia.org
+is reachable there), compared every template and parameter name the skill emits with TemplateData,
+the template source (`{{{param|`) and the module each template invokes.
+
+| Result | Tag |
+|---|---|
+| Infoboxes: 117 of 123 builder parameters confirmed, including زندگی‌نامه misc parameters, منطقه مسکونی numbering (`نوع زیربخش۱`…), کتاب `تعداد_صفحات`, دانشگاه `وبگاه` | [LIVE] |
+| Fixed: فیلم runtime is `مدت`; کشور uses `نام عادی`, `تصویر نشان ملی`, `زبان(های) رسمی`; هنرمند موسیقی uses `پس‌زمینه` (not `پیش‌زمینه`) and has no notable-instruments parameter | [LIVE] |
+| `{{کنترل مرجعیت}}` and `{{تک}}` do not exist. en Authority control ↔ `{{داده‌های کتابخانه‌ای}}`; Short description ↔ `{{توصیف کوتاه}}`; en `{{References}}` ↔ `{{بدون منبع}}` (interlanguage links) | [LIVE] |
+| یادکرد کتاب `نویسنده`, `ترجمه`; یادکرد ژورنال `نویسنده`, `جلد`, `ناشر`: not in TemplateData, source or `citation/CS1/fa/dispatch`, but emitted by citer | [CONFLICT] |
+
 ### 3.14 Speedy deletion, timed deletion, AfD, new-page patrol
 | Rule | Source | Tag |
 |---|---|---|
@@ -339,7 +351,7 @@ The gadget was likely seeded by persiantools: AA reproduces PT's functions verba
 - [ ] **Dates and numbers:** the full Gregorian month list; number–unit spacing, percent and currency rules
 - [ ] **Transliteration, lead and words to watch:** an English → Persian letter table; the birth/death parenthesis format; a fuller peacock-word list
 - [ ] **Templates:** whether {{منبع}} is a separate template; {{بدون منبع}} parameters; `مترجم`, `صفحه‌ها`, یادکرد خبر `کار`; whether date validators accept Persian-digit or Solar dates (`۱۵ فروردین ۱۴۰۲`)
-- [ ] **Infoboxes:** usage ranking (`Special:MostTranscludedPages`); منطقه مسکونی subdivision numbering and postal codes; روستای ایران statistical-code and census-year parameters; whether «جعبه اطلاعات شخص» is a redirect; a Persian football wrapper
+- [ ] **Infoboxes:** usage ranking (`Special:MostTranscludedPages`); ~~منطقه مسکونی subdivision numbering~~ (confirmed live, §3.13a) and postal codes; روستای ایران statistical-code and census-year parameters; whether «جعبه اطلاعات شخص» is a redirect; a Persian football wrapper
 - [ ] **Deletion:** ع۱۳, ع۱۴, م۴–م۶, م۸; content of the Iran/Afghanistan biographies RfC
 - [ ] **Translation and AI:** whether ویکی‌پدیا:ترجمه exists; any MT policy or cap; status banner of [مدل‌های زبانی بزرگ](https://fa.wikipedia.org/wiki/ویکی‌پدیا:مدل‌های_زبانی_بزرگ) (policy / guideline / «انشا»); an AI maintenance template and an adoption RfC
 
@@ -355,7 +367,8 @@ The gadget was likely seeded by persiantools: AA reproduces PT's functions verba
 - [ ] **Sourcing and words to watch:** تأییدپذیری (self-published sources); منابع معتبر (expert exception; Wikipedia not a source); تحقیق دست‌اول ممنوع (whole page); words-to-watch page (whole page)
 - [ ] **Maintenance templates:** {{مدرک}} `تاریخ` format; {{یک منبع}}; {{ابهام‌زدایی}} placement
 - [ ] **Citations** ([پودمان:Citation/CS1/fa/Configuration](https://fa.wikipedia.org/wiki/پودمان:Citation/CS1/fa/Configuration)): English aliases inside یادکرد; `تاریخ بازدید`, `نقل قول`, `قالب`, `ترجمه عنوان`, `شهر`, `دوره`, `خبرگزاری`, `تاریخ انتشار`; {{پانویس\|گروه=}}
-- [ ] **Infoboxes:** زندگی‌نامه misc parameters and {{جعبه زندگینامه}} redirect; فیلم runtime / budget; کتاب page count; دانشگاه website; کشور Persian parameters; football biography; سیاست‌مدار; officeholder; هنرپیشه
+- [x] **Infoboxes, builder parameters:** زندگی‌نامه misc, فیلم runtime, کتاب page count, دانشگاه website, کشور Persian parameters: checked live 2026-10-21 (§3.13a)
+- [ ] **Infoboxes, other:** {{جعبه زندگینامه}} redirect; football biography; سیاست‌مدار; officeholder; هنرپیشه
 - [ ] **Deletion:** prefix list; ع۴, ع۶, ع۸–ع۱۱; م۱, م۹–م۱۱; ت / پ / ر / ک; all-criteria rules; ع۱۵ title, signs, adoption RfC (is «یادکرد ساختگی» part of it?); AfD 7-day minimum; patrol / draftify rules; {{نقض حق تکثیر}}
 - [ ] **Translation and AI:** {{صفحه ترجمه‌شده}} revision parameters; optional talk template; cleanup templates; claims on [هوش مصنوعی](https://fa.wikipedia.org/wiki/ویکی‌پدیا:هوش_مصنوعی); whether «ساخت مقاله با مدل‌های زبانی بزرگ» exists on fa; the Perseus discussion
 - [ ] **Tools:** does the live gadget (`MediaWiki:Gadget-Extra-Editbuttons-persianwikitools.js`, `-persiantools.js`, `-dictionary.js`) still match the AA port? Are FCC's template aliases still current redirects?
@@ -381,6 +394,8 @@ The gadget was likely seeded by persiantools: AA reproduces PT's functions verba
 | End-section order | پانویس / منابع may be one section [V] | An alternate revision puts پانویس before منابع [V] | Either form is fine; don't reorder. |
 
 ## 6. How to re-verify when wikipedia.org is reachable
+
+Steps 3 to 5 are automated: `bench/live_check.py templates` (monthly in `.github/workflows/live.yml`).
 
 Record each page's `revid` so that rows can cite pinned revisions. Then replace every [LOW] / [UNVERIFIED] tag and re-check every [V] quote against the live wikitext.
 

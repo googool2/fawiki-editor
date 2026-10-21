@@ -7,6 +7,8 @@ Code sources: **citer** (the fa.wiki citation generator by 5j9/Dalba, `main` @ `
 and **fawikibot** (`master` @ `04dde6d`). Research date: 2026-10-21. fa.wiki pages change, so treat
 [LOW] parameter names as provisional.
 
+> **Live check, 2026-10-21** (`bench/live_check.py`): every web and news parameter below was found in the live templates. Five were not: `{{یادکرد کتاب}}` `نویسنده`, `ترجمه` and `{{یادکرد ژورنال}}` `نویسنده`, `جلد`, `ناشر` are missing from TemplateData, the template source and the invoked module (`citation/CS1/fa/dispatch`), yet citer emits them. They are kept (citer is fa.wiki's own tool) but marked **[CONFLICT]**; if one shows an «پارامتر ناشناخته» error in preview, use `نام خانوادگی` for an unsplit author, `دیگران=ترجمهٔ …` for a translator, and `دوره` for a journal volume.
+
 ## Contents
 [1 Ground rules](#1-ground-rules) · [2 `<ref>`](#2-ref-and-named-refs) · [3 `{{پانویس}}`](#3-پانویس-reference-list) · [4 `{{پک}}`](#4-short-footnotes-پک) · [5 Dates/authors/IDs](#5-dates-author-numbering-identifiers) · [6 یادکرد وب](#6-یادکرد-وب) · [7 یادکرد کتاب](#7-یادکرد-کتاب) · [8 یادکرد ژورنال](#8-یادکرد-ژورنال) · [9 یادکرد خبر](#9-یادکرد-خبر) · [10 EN→FA table](#10-english--persian-conversion-table) · [11 Anti-fabrication](#11-anti-fabrication) · [12 Tools](#12-tools)
 

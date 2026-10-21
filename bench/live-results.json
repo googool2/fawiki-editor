@@ -1,0 +1,48 @@
+{
+  "what": "Live checks against fa.wikipedia.org run by .github/workflows/live.yml (bench/live_check.py). Article text is not stored; counts only.",
+  "date": "2026-10-21",
+  "rehearsal": {
+    "sample": "60 random namespace-0 articles of at least 3,000 bytes per run (no redirects, no disambiguation pages); a new sample each run",
+    "labels": "bench/label.py, then every non-whitespace change read by hand in the CI log (Claude); hand review overrides the script",
+    "runs": [
+      {"run": 1, "commit": "d526068", "rules": "v0.2.0", "articles": 60, "changes": 143,
+       "script_labels": {"correct": 139, "debatable": 2, "wrong": 2},
+       "hand_review": {"wrong": 0, "debatable": 5},
+       "notes": "The 2 'wrong' were correct digit fixes (labeler counted Latin text inside templates). Debatable: spaces inserted inside chains of initials/acronyms (FA42), no longer produced."},
+      {"run": 2, "commit": "3119ba3", "rules": "v0.2.0", "articles": 60, "changes": 525,
+       "script_labels": {"correct": 521, "debatable": 1, "wrong": 3},
+       "hand_review": {"wrong": 109, "debatable": 1},
+       "notes": "All 109 wrong changes are in one article: FA01/FA02 folded ي/ك/ى inside Uyghur place names; the labeler had marked them correct. The 3 'wrong' were labeler errors."},
+      {"run": 3, "commit": "acb1f1a", "rules": "Uyghur fix", "articles": 60, "changes": 196,
+       "script_labels": {"correct": 195, "debatable": 0, "wrong": 1},
+       "hand_review": {"wrong": 0, "debatable": 0},
+       "regression_set": {"articles": 7, "changes": 142, "wrong_hand": 2,
+                          "notes": "Uyghur word after a closing parenthesis; fixed in d30d329"}},
+      {"run": 4, "commit": "d30d329", "rules": "Uyghur + parenthesis fix", "articles": 60, "changes": 279,
+       "script_labels": {"correct": 212, "debatable": 67, "wrong": 0},
+       "hand_review": {"wrong": 0, "debatable": 67},
+       "notes": "All 67 debatable: FA40 removed the space in list items like '* .us' (renders the same). FA40 skips list markers since.",
+       "regression_set": {"articles": 7, "changes": 140, "wrong_hand": 0}}
+    ],
+    "summary": {
+      "v0.2.0_rules": {"articles": 120, "changes": 668, "wrong": 109, "articles_damaged": 1},
+      "after_fixes": {"articles": 120, "changes": 475, "wrong": 0, "articles_damaged": 0}
+    }
+  },
+  "templates": {
+    "method": "TemplateData, template source ({{{param|) and the invoked module, per template",
+    "infoboxes": {"templates": 10, "parameters": 123, "confirmed": 117, "fixed": 6,
+                  "fixed_names": {"film runtime": "مدت زمان → مدت", "country common_name": "نام رایج → نام عادی",
+                                  "country coat_of_arms": "تصویر نشان → تصویر نشان ملی",
+                                  "country official_languages": "زبان‌های رسمی → زبان(های) رسمی",
+                                  "musical artist background": "پیش‌زمینه → پس‌زمینه",
+                                  "musical artist notable_instruments": "سازهای برجسته → removed (no such parameter)"}},
+    "citations": {"templates": 4, "parameters": 57, "confirmed": 52, "unresolved": 5,
+                  "unresolved_names": ["یادکرد کتاب: نویسنده, ترجمه", "یادکرد ژورنال: نویسنده, جلد, ناشر"],
+                  "notes": "Not in TemplateData, template source or the invoked module (citation/CS1/fa/dispatch), but fa.wiki's citer tool emits them. Left unchanged; asked of reviewers."},
+    "other": {"کنترل مرجعیت": "does not exist; Authority control is {{داده‌های کتابخانه‌ای}}",
+              "تک": "does not exist; removed from the known-template list",
+              "Short description": "fa.wiki has {{توصیف کوتاه}}",
+              "References (en)": "interlanguage link points to {{بدون منبع}}"}
+  }
+}
