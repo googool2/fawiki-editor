@@ -7,7 +7,7 @@ import pytest
 from fa_lint import lint
 from wikitext_check import check
 
-EX = Path(__file__).resolve().parent.parent / "examples"
+EX = Path(__file__).resolve().parent.parent / "skills" / "fawiki-editor" / "examples"
 GOOD = (EX / "article-good.wikitext").read_text(encoding="utf-8")
 BAD = (EX / "article-bad.wikitext").read_text(encoding="utf-8")
 

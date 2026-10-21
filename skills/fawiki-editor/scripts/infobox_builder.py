@@ -36,7 +36,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from fawiki_common import load_json, read_input  # noqa: E402
+from fawiki_common import __version__, utf8_stdio, load_json, read_input  # noqa: E402
 
 BOXES: dict = load_json("infoboxes.json")["infoboxes"]
 
@@ -152,6 +152,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--list", action="store_true", help="list supported infoboxes")
     ap.add_argument("--keep-unknown", action="store_true", help="keep keys that are not in the schema")
     ap.add_argument("--strict", action="store_true", help="exit 1 when core params are missing")
+    ap.add_argument("--version", action="version", version=f"infobox_builder {__version__}")
+    utf8_stdio()
     a = ap.parse_args(argv)
 
     if a.list:

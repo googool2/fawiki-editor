@@ -32,7 +32,8 @@ from typing import Callable
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from fawiki_common import (  # noqa: E402
-    NON_JOINING, PERSIAN_LETTERS, PH_CLASS, PH_RE, ZWNJ, Masked, load_json, read_input,
+    NON_JOINING, PERSIAN_LETTERS, PH_CLASS, PH_RE, ZWNJ, Masked, __version__, load_json, read_input,
+    utf8_stdio, write_text_atomic,
 )
 
 L = PERSIAN_LETTERS
@@ -65,6 +66,7 @@ class Rule:
 
 @dataclass
 class Change:
+    id: int
     rule: str
     name: str
     line: int
@@ -233,27 +235,35 @@ def _context(text: str, start: int, end: int) -> tuple[int, int]:
     return s, min(e, end + 25)
 
 
-def lint(text: str, enabled: set[str] | None = None, markdown: bool = False) -> Result:
+def lint(text: str, enabled: set[str] | None = None, markdown: bool = False,
+         select: set[int] | None = None) -> Result:
+    """Lint `text`. Every candidate change gets an id in application order (rule order,
+    then position). With `select`, only those ids are applied; the rest stay as they are."""
     masked = Masked(text, markdown=markdown)
     cur = masked.text
     res = Result(original=text, fixed=text)
+    counter = [0]
     for rule in RULES:
         if enabled is not None and rule.id not in enabled:
             continue
-        hits: list[tuple[int, int, str]] = []
+        hits: list[tuple[int, int, str, int]] = []
 
         def sub(m: re.Match, rule=rule) -> str:
             new = m.expand(rule.repl) if isinstance(rule.repl, str) else rule.repl(m)
-            if new != m.group(0):
-                hits.append((m.start(), m.end(), new))
+            if new == m.group(0):
+                return new
+            counter[0] += 1
+            if select is not None and counter[0] not in select:
+                return m.group(0)
+            hits.append((m.start(), m.end(), new, counter[0]))
             return new
 
         new_text = rule.pattern.sub(sub, cur)
         if new_text == cur:
             continue
-        for start, end, new in hits:
+        for start, end, new, cid in hits:
             cs, ce = _context(cur, start, end)
-            res.changes.append(Change(rule.id, rule.name, masked.line_of(cur, start),
+            res.changes.append(Change(cid, rule.id, rule.name, masked.line_of(cur, start),
                                       masked.unmask(cur[cs:ce]), masked.unmask(cur[cs:start] + new + cur[end:ce])))
         cur = new_text
     # Safety net (as fa.wiki's cosmetic bot does): protected spans must survive intact and in order.
@@ -261,8 +271,63 @@ def lint(text: str, enabled: set[str] | None = None, markdown: bool = False) -> 
         raise RuntimeError("internal error: a rule touched a protected region or a newline")
     res.fixed = masked.unmask(cur)
     res.warnings = _warnings(Masked(res.fixed, markdown=markdown))
-    res.changes.sort(key=lambda c: (c.line, c.rule))
+    res.changes.sort(key=lambda c: c.id)
     return res
+
+
+def parse_ranges(spec: str, kind: str = "id", universe: set[str] | None = None) -> set:
+    """'3-5,9' -> {3,4,5,9}; for rules 'FA20-FA23,FA40' -> matching existing rule ids."""
+    out: set = set()
+    for part in filter(None, (p.strip() for p in spec.split(","))):
+        lo, _, hi = part.partition("-")
+        if kind == "id":
+            a, b = int(lo), int(hi or lo)
+            if a < 1 or b < a:
+                raise ValueError(f"bad id range: {part}")
+            out |= set(range(a, b + 1))
+        else:
+            lo, hi = lo.upper(), (hi or lo).upper()
+            m1, m2 = re.fullmatch(r"([A-Z]+)(\d+)", lo), re.fullmatch(r"([A-Z]+)(\d+)", hi)
+            if not m1 or not m2 or m1.group(1) != m2.group(1):
+                raise ValueError(f"bad rule range: {part}")
+            nums = range(int(m1.group(2)), int(m2.group(2)) + 1)
+            hit = {r for r in (universe or set()) if r.startswith(m1.group(1))
+                   and r[len(m1.group(1)):].isdigit() and int(r[len(m1.group(1)):]) in nums}
+            if not hit:
+                raise ValueError(f"no rule matches: {part}")
+            out |= hit
+    return out
+
+
+def _ranges(nums: list[int]) -> str:
+    nums = sorted(set(nums))
+    parts, i = [], 0
+    while i < len(nums):
+        j = i
+        while j + 1 < len(nums) and nums[j + 1] == nums[j] + 1:
+            j += 1
+        parts.append(str(nums[i]) if i == j else f"{nums[i]}-{nums[j]}")
+        i = j + 1
+    return ",".join(parts)
+
+
+def format_summary(res: Result, name: str = "input") -> str:
+    """One line per rule: count, change ids (as ranges) and lines. Short enough for a model."""
+    out = [f"fa_lint {__version__}: {name}: {len(res.changes)} change(s), {len(res.warnings)} warning(s)"
+           + (" [whitespace-only]" if res.whitespace_only else "")]
+    groups: dict[str, list[Change]] = {}
+    for c in res.changes:
+        groups.setdefault(c.rule, []).append(c)
+    for rule, cs in groups.items():
+        ex = cs[0]
+        out.append(f"  {rule} {ex.name:<22} x{len(cs):<3} ids {_ranges([c.id for c in cs]):<10} "
+                   f"lines {_ranges([c.line for c in cs])}  e.g. «{ex.before.replace(ZWNJ, '␌')}» → «{ex.after.replace(ZWNJ, '␌')}»")
+    wgroups: dict[str, list[dict]] = {}
+    for w in res.warnings:
+        wgroups.setdefault(w["rule"], []).append(w)
+    for rule, ws in wgroups.items():
+        out.append(f"  {rule} warning x{len(ws)} lines {_ranges([w['line'] for w in ws])}: {ws[0]['message']}")
+    return "\n".join(out)
 
 
 def format_report(res: Result, name: str = "input") -> str:
@@ -272,8 +337,8 @@ def format_report(res: Result, name: str = "input") -> str:
     if res.whitespace_only:
         head += " [whitespace-only: not worth an edit on its own]"
     out = [head]
-    for c in res.changes:
-        out.append(f"  L{c.line:<4} {c.rule} {c.name:<22} «{c.before.replace(ZWNJ, '␌')}» → «{c.after.replace(ZWNJ, '␌')}»")
+    for c in sorted(res.changes, key=lambda c: (c.line, c.id)):
+        out.append(f"  #{c.id:<3} L{c.line:<4} {c.rule} {c.name:<22} «{c.before.replace(ZWNJ, '␌')}» → «{c.after.replace(ZWNJ, '␌')}»")
     for w in res.warnings:
         out.append(f"  L{w['line']:<4} {w['rule']} warning                {w['message']}")
     if any(ZWNJ in (c.before + c.after) for c in res.changes):
@@ -297,9 +362,13 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--json", action="store_true", help="machine-readable report")
     ap.add_argument("--no-diff", action="store_true", help="report only")
     ap.add_argument("--markdown", action="store_true", help="protect Markdown code (auto for *.md)")
-    ap.add_argument("--rules", help="comma-separated rule ids to run (default: all)")
-    ap.add_argument("--disable", help="comma-separated rule ids to skip")
+    ap.add_argument("--rules", help="rule ids or ranges to run, e.g. FA01,FA20-FA23 (default: all)")
+    ap.add_argument("--disable", help="rule ids or ranges to skip")
+    ap.add_argument("--only", help="apply only these change ids, e.g. 1-4,9 (ids from a plain run)")
+    ap.add_argument("--summary", action="store_true", help="one line per rule instead of one per change")
     ap.add_argument("--list-rules", action="store_true")
+    ap.add_argument("--version", action="version", version=f"fa_lint {__version__}")
+    utf8_stdio()
     a = ap.parse_args(argv)
 
     if a.list_rules:
@@ -308,13 +377,13 @@ def main(argv: list[str] | None = None) -> int:
         for code, _rx, _c, msg in _FW:
             print(f"{code}  warning                {msg.replace('{0}', '…')}")
         return 0
-    enabled = set(RULE_IDS)
-    if a.rules:
-        enabled = {x.strip().upper() for x in a.rules.split(",")}
-    if a.disable:
-        enabled -= {x.strip().upper() for x in a.disable.split(",")}
-    if enabled - RULE_IDS:
-        print(f"unknown rule id(s): {', '.join(sorted(enabled - RULE_IDS))}", file=sys.stderr)
+    try:
+        enabled = parse_ranges(a.rules, "rule", RULE_IDS) if a.rules else set(RULE_IDS)
+        if a.disable:
+            enabled -= parse_ranges(a.disable, "rule", RULE_IDS)
+        select = parse_ranges(a.only, "id") if a.only else None
+    except ValueError as e:
+        print(str(e), file=sys.stderr)
         return 2
     if a.fix and a.file == "-":
         print("--fix needs a file path", file=sys.stderr)
@@ -324,7 +393,7 @@ def main(argv: list[str] | None = None) -> int:
     except OSError as e:
         print(f"cannot read {a.file}: {e}", file=sys.stderr)
         return 2
-    res = lint(text, enabled, markdown=a.markdown or a.file.lower().endswith(".md"))
+    res = lint(text, enabled, markdown=a.markdown or a.file.lower().endswith(".md"), select=select)
     name = "stdin" if a.file == "-" else Path(a.file).name
 
     if a.json:
@@ -333,13 +402,13 @@ def main(argv: list[str] | None = None) -> int:
                           "changes": [c.__dict__ for c in res.changes], "warnings": res.warnings},
                          ensure_ascii=False, indent=2))
     else:
-        print(format_report(res, name))
-        if not a.no_diff and res.fixed != res.original:
+        print(format_summary(res, name) if a.summary else format_report(res, name))
+        if not a.no_diff and not a.summary and res.fixed != res.original:
             print(unified_diff(res, name), end="")
     if a.output:
-        Path(a.output).write_text(res.fixed, encoding="utf-8")
+        write_text_atomic(a.output, res.fixed)
     if a.fix and res.fixed != res.original:
-        Path(a.file).write_text(res.fixed, encoding="utf-8")
+        write_text_atomic(a.file, res.fixed)
     return 1 if a.check and res.fixed != res.original else 0
 
 

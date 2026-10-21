@@ -33,7 +33,7 @@ from pathlib import Path
 from typing import Callable
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from fawiki_common import load_json  # noqa: E402
+from fawiki_common import __version__, utf8_stdio, load_json  # noqa: E402
 
 SPEC = load_json("citations.json")
 UA = "fawiki-editor-cite-builder/0.1 (https://github.com/googool2/fawiki-editor)"
@@ -259,6 +259,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--inline", action="store_true", help="single-line output")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--timeout", type=float, default=15.0)
+    ap.add_argument("--version", action="version", version=f"cite_builder {__version__}")
+    utf8_stdio()
     a = ap.parse_args(argv)
 
     try:

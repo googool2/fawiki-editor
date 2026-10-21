@@ -20,6 +20,8 @@ import json
 import re
 from pathlib import Path
 
+__version__ = "0.2.0"
+
 DATA_DIR = Path(__file__).resolve().parent / "data"
 
 # Supplementary private-use area: one code point per protected span.
@@ -258,11 +260,42 @@ def load_json(name: str):
 
 
 def read_input(path: str | None) -> str:
+    """Read UTF-8 text exactly as stored (CRLF kept, BOM kept for FA09 to report)."""
     import sys
 
     if path in (None, "-"):
         return sys.stdin.read()
-    return Path(path).read_text(encoding="utf-8")
+    with open(path, encoding="utf-8", newline="") as f:
+        return f.read()
+
+
+def write_text_atomic(path: str | Path, text: str) -> None:
+    """Write next to the target first, then replace it in one step (no half-written file)."""
+    import os
+    import tempfile
+
+    path = Path(path)
+    fd, tmp = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=str(path.parent))
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8", newline="") as f:
+            f.write(text)
+        os.replace(tmp, path)
+    except BaseException:
+        if os.path.exists(tmp):
+            os.unlink(tmp)
+        raise
+
+
+def utf8_stdio() -> None:
+    """Persian output must not crash on consoles with a legacy code page (Windows)."""
+    import sys
+
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            try:
+                stream.reconfigure(encoding="utf-8")
+            except (ValueError, OSError):  # pragma: no cover - detached or odd streams
+                pass
 
 
 def try_mwparser():

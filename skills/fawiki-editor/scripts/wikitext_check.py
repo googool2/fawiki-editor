@@ -31,7 +31,7 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from fawiki_common import find_protected_spans, line_at, load_json, read_input, try_mwparser  # noqa: E402
+from fawiki_common import __version__, utf8_stdio, find_protected_spans, line_at, load_json, read_input, try_mwparser  # noqa: E402
 
 DATA = load_json("templates.json")
 KNOWN = {n.replace("_", " ").strip() for n in DATA["known_templates"]}
@@ -283,6 +283,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("file", nargs="?", default="-")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--strict", action="store_true", help="warnings also fail")
+    ap.add_argument("--version", action="version", version=f"wikitext_check {__version__}")
+    utf8_stdio()
     a = ap.parse_args(argv)
     try:
         text = read_input(a.file)
