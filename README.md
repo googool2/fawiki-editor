@@ -66,7 +66,7 @@ scripts. The model sees short summaries, not raw files. A real excerpt:
 
 ```text
 $ python3 skills/fawiki-editor/scripts/fawiki.py report article-bad.wikitext
-fa_lint 0.2.0: article-bad.wikitext: 7 change(s), 0 warning(s)
+fa_lint 0.2.1: article-bad.wikitext: 7 change(s), 0 warning(s)
   FA01 arabic-yeh             x1   ids 1          lines 2  e.g. «ايران» → «ایران»
   FA02 arabic-kaf             x1   ids 2          lines 8  e.g. «كوه» → «کوه»
   FA04 latin-digits           x1   ids 3          lines 11  e.g. «5600» → «۵۶۰۰»
@@ -74,7 +74,7 @@ fa_lint 0.2.0: article-bad.wikitext: 7 change(s), 0 warning(s)
   FA21 zwnj-ha                x1   ids 5          lines 11  e.g. «قله ها» → «قله␌ها»
   FA30 persian-comma          x1   ids 6          lines 12  e.g. «است, ولی» → «است، ولی»
   FA40 space-before-punct     x1   ids 7          lines 8  e.g. «است .» → «است.»
-wikitext_check 0.2.0: article-bad.wikitext: 3 error(s), 0 warning(s)
+wikitext_check 0.2.1: article-bad.wikitext: 3 error(s), 0 warning(s)
   E WC06 x1 lines 2: lead sentence has no bold title ('''عنوان''')
   E WC03 x1 lines 12: <ref> without </ref>
   E WC05 x1 lines 19: no category: add at least one [[رده:...]] at the end
@@ -111,7 +111,7 @@ monthly. Four runs on 2026-10-21, 240 articles (text not stored, counts in
 | Rules | Articles | Automatic changes | Wrong |
 |---|---|---|---|
 | v0.2.0 | 120 | 668 | **109, all in one article** |
-| After the fixes below | 120 | 475 | **0** |
+| v0.2.1 (the fixes below) | 120 | 475 | **0** |
 
 The 109 were Uyghur place names in one article: FA01/FA02 changed the Uyghur letters ي/ك/ى in them,
 and the labeling script had marked those changes correct. Runs of Arabic-script words that contain

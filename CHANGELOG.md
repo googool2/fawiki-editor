@@ -15,6 +15,8 @@ Semantic versioning, read from the point of view of someone's draft:
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-10-22
+
 ### Fixed (from live runs on current fa.wiki articles)
 Four runs of `.github/workflows/live.yml` on 2026-10-21 (240 random current articles, every
 change read by hand). With the v0.2.0 rules, 109 of 668 changes on 120 articles were wrong, all
